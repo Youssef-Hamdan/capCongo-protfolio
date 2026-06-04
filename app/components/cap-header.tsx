@@ -16,35 +16,26 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { scrollToHashId } from "@/lib/hash-scroll";
 
-const COMPANY_ITEMS: {
-  label: string;
-  href: string;
-  tagline: string;
-  accent: string;
-}[] = [
+const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
   {
     label: "AGRO PALM",
     href: "/agro-palm",
     tagline: "Palme & chaîne de valeur",
-    accent: "from-cap-green/25 to-cap-dark-green/10",
   },
   {
     label: "AGRICOLE BUNDUNDU",
     href: "/agricole-bundundu",
     tagline: "Grandes cultures & démonstration",
-    accent: "from-cap-yellow/30 to-cap-green/15",
   },
   {
     label: "AGRO-PASTORAL",
     href: "/agro-pastoral",
     tagline: "Élevage & productions mixtes",
-    accent: "from-cap-blue/20 to-cap-green/12",
   },
   {
     label: "PISCICULTURE",
     href: "/pisciculture",
     tagline: "Aquaculture durable",
-    accent: "from-cap-green/20 to-cap-blue/15",
   },
 ];
 
@@ -372,43 +363,49 @@ export default function CapHeader() {
                     id="header-companies-menu"
                     role="menu"
                     aria-labelledby="header-companies-trigger"
-                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-1/2 top-full z-[80] mt-2 w-[min(22rem,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-cap-dark/10 bg-white/[0.97] p-2 shadow-[0_24px_48px_-12px_rgba(29,29,27,0.18)] backdrop-blur-md"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute left-1/2 top-full z-[80] mt-1.5 w-[min(15.5rem,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-xl border border-cap-dark/[0.08] bg-white/[0.98] shadow-[0_16px_40px_-16px_rgba(29,29,27,0.14)] backdrop-blur-md"
                     style={{ transformOrigin: "top center" }}
                   >
-                    <p className="px-2 pb-1.5 pt-1 font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cap-grey">
-                      Nos filiales
-                    </p>
-                    <div className="grid grid-cols-2 gap-1.5">
+                    <div
+                      className="pointer-events-none absolute left-[0.875rem] top-3 bottom-3 w-px bg-cap-dark/[0.08]"
+                      aria-hidden
+                    />
+                    <ul className="relative py-1">
                       {COMPANY_ITEMS.map((co, i) => (
-                        <motion.div
-                          key={co.href}
-                          initial={{ opacity: 0, x: -6 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.04 + i * 0.05, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        >
+                        <li key={co.href}>
                           <Link
                             href={co.href}
                             role="menuitem"
-                            className={`group relative flex min-h-[4.25rem] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br ${co.accent} p-3 outline-none ring-cap-yellow transition-shadow hover:shadow-md focus-visible:ring-2`}
+                            className="group relative flex gap-2.5 py-2 pl-6 pr-3 outline-none transition-[background-color,color] hover:bg-cap-dark/[0.03] focus-visible:bg-cap-dark/[0.04] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-cap-yellow"
                             onClick={() => setCompaniesMenuPinned(false)}
                           >
-                            <span className="absolute right-2 top-2 font-unbounded text-[10px] font-bold tabular-nums text-cap-dark/25 transition-colors group-hover:text-cap-green">
+                            <span
+                              className="absolute left-[0.8125rem] top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cap-dark/15 ring-2 ring-white transition-[background-color,transform] group-hover:scale-125 group-hover:bg-cap-green"
+                              aria-hidden
+                            />
+                            <span className="w-4 shrink-0 pt-0.5 text-right font-mono text-[9px] font-medium tabular-nums text-cap-grey/70">
                               {String(i + 1).padStart(2, "0")}
                             </span>
-                            <span className="font-sans text-[11px] font-semibold leading-tight text-cap-dark">
-                              {co.label}
-                            </span>
-                            <span className="mt-0.5 font-sans text-[10px] leading-snug text-cap-grey">
-                              {co.tagline}
+                            <span className="min-w-0 flex-1">
+                              <span className="block text-[11px] font-semibold tracking-[0.06em] text-cap-dark transition-colors group-hover:text-cap-green">
+                                {co.label}
+                              </span>
+                              <span className="grid transition-[grid-template-rows,opacity] duration-200 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] grid-rows-[0fr] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100">
+                                <span className="overflow-hidden">
+                                  <span className="block pt-0.5 font-sans text-[10px] leading-snug text-cap-grey">
+                                    {co.tagline}
+                                  </span>
+                                </span>
+                              </span>
                             </span>
                           </Link>
-                        </motion.div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -521,35 +518,46 @@ export default function CapHeader() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex w-full max-w-md flex-col items-stretch overflow-hidden"
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex w-full max-w-xs flex-col items-stretch overflow-hidden"
                   >
-                    <div className="flex flex-col gap-2 border-l-2 border-cap-yellow/80 pl-5">
+                    <ul className="relative mx-auto w-full border-t border-cap-dark/10 pt-1 before:absolute before:left-[0.6875rem] before:top-2 before:bottom-2 before:z-0 before:w-px before:bg-cap-dark/10 sm:before:left-[0.9375rem]">
                       {COMPANY_ITEMS.map((co, i) => (
-                        <motion.div
+                        <motion.li
                           key={co.href}
-                          initial={{ opacity: 0, x: -12 }}
+                          className="border-b border-cap-dark/[0.06] last:border-b-0"
+                          initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{
-                            delay: 0.06 + i * 0.06,
-                            duration: 0.4,
+                            delay: 0.04 + i * 0.05,
+                            duration: 0.35,
                             ease: [0.16, 1, 0.3, 1],
                           }}
                         >
                           <Link
                             href={co.href}
-                            className="block rounded-md py-1 text-left font-unbounded text-xl font-bold tracking-tight text-cap-dark transition-colors hover:text-cap-green sm:text-2xl"
+                            className="group relative flex gap-3 py-3 pl-8 pr-2 text-left transition-colors sm:pl-10 sm:pr-3"
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            <span className="mr-2 font-mono text-sm font-semibold text-cap-grey tabular-nums">
+                            <span
+                              className="absolute left-[0.6875rem] top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cap-dark/20 ring-2 ring-background transition-colors group-active:bg-cap-green sm:left-[0.9375rem]"
+                              aria-hidden
+                            />
+                            <span className="w-5 shrink-0 text-right font-mono text-xs font-medium tabular-nums text-cap-grey">
                               {String(i + 1).padStart(2, "0")}
                             </span>
-                            {co.label}
+                            <span className="min-w-0">
+                              <span className="block font-unbounded text-lg font-bold tracking-tight text-cap-dark transition-colors group-hover:text-cap-green sm:text-xl">
+                                {co.label}
+                              </span>
+                              <span className="mt-0.5 block font-sans text-xs leading-snug text-cap-grey sm:text-sm">
+                                {co.tagline}
+                              </span>
+                            </span>
                           </Link>
-                          <p className="pl-8 font-sans text-sm text-cap-grey">{co.tagline}</p>
-                        </motion.div>
+                        </motion.li>
                       ))}
-                    </div>
+                    </ul>
                   </motion.div>
                 )}
               </AnimatePresence>
