@@ -3,10 +3,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { type LucideIcon, Fish, Leaf, Sprout, Wheat } from "lucide-react";
+import { type LucideIcon, Fish, Leaf, Sprout, Wheat, ChevronLeft, ChevronRight } from "lucide-react";
 import { HeroFooter } from "./hero-footer";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 
 const iconMap: Record<string, LucideIcon> = {
   Fish,
@@ -22,6 +24,8 @@ interface CompanyPageProps {
   /** One line per split slide. Wrap phrases in **double asterisks** for the accent color (contrast on each slide). */
   paragraphSubtitles: string[];
   heroImage?: string;
+  /** Hero background carousel (auto + manual). Falls back to `heroImage` when omitted. */
+  heroImages?: string[];
   /** Left column of the split showcase — one image per slide, cycled with modulo if shorter than `paragraphs`. */
   showcaseImages?: string[];
   accentColor?: "green" | "yellow" | "blue";
@@ -39,14 +43,49 @@ function HeroSection({
   title, 
   logoSrc, 
   heroImage,
+  heroImages,
   accentTextClass 
 }: { 
   title: string; 
   logoSrc: string; 
   heroImage: string;
+  heroImages?: string[];
   accentTextClass: string; 
 }) {
   const containerRef = useRef<HTMLElement>(null);
+  const slides = heroImages?.length ? heroImages : [heroImage];
+  const isCarousel = slides.length > 1;
+
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 5500, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start", duration: 35 },
+    isCarousel ? [autoplayPlugin.current] : []
+  );
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
   
   const { scrollY } = useScroll();
   const heroFade = useTransform(scrollY, [0, 350, 750], [1, 0.75, 0]);
@@ -76,44 +115,102 @@ function HeroSection({
           style={{ y: imgY, scale: imgScale }} 
           className="absolute inset-0 z-[1] origin-center"
         >
-          <Image
-            src={heroImage}
-            alt={`${title} Background`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-100"
-          />
+          {isCarousel ? (
+            <div ref={emblaRef} className="h-full w-full overflow-hidden">
+              <div className="flex h-full">
+                {slides.map((src, i) => (
+                  <div key={src} className="relative h-full min-w-0 flex-[0_0_100%]">
+                    <Image
+                      src={src}
+                      alt={`${title} — vue ${i + 1}`}
+                      fill
+                      priority={i === 0}
+                      sizes="100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={heroImage}
+              alt={`${title} Background`}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-100"
+            />
+          )}
         </motion.div>
 
       </motion.div>
 
+      {isCarousel ? (
+        <>
+          <button
+            type="button"
+            onClick={scrollPrev}
+            aria-label="Image précédente"
+            className="absolute left-3 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:left-6 md:size-12"
+          >
+            <ChevronLeft className="size-6" strokeWidth={2.5} />
+          </button>
+          <button
+            type="button"
+            onClick={scrollNext}
+            aria-label="Image suivante"
+            className="absolute right-3 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:right-6 md:size-12"
+          >
+            <ChevronRight className="size-6" strokeWidth={2.5} />
+          </button>
+          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 md:bottom-8">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Aller à l'image ${i + 1}`}
+                aria-current={selectedIndex === i ? "true" : undefined}
+                onClick={() => scrollTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  selectedIndex === i ? "w-8 bg-cap-yellow" : "w-2 bg-white/50 hover:bg-white/80"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
+
       <motion.div 
         style={{ opacity: heroFade }}
-        className="relative z-10 flex flex-col flex-1 justify-end pb-12 w-full"
+        className="relative z-10 flex flex-1 flex-col w-full pointer-events-none"
       >
-        <div className="flex flex-col items-center gap-6 md:gap-10 text-center w-full px-4 mb-6 md:mb-10">
-          
-          {/* LOGO: Slides up and fades in (matches GSAP hero-subline) */}
+        {/* LOGO: centered */}
+        <div className="flex flex-1 items-center justify-center">
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: cinematicEase }}
-            className="relative w-32 h-32 md:w-48 md:h-48 drop-shadow-2xl"
+            className="relative size-48 drop-shadow-2xl sm:size-56 md:size-64 lg:size-72 xl:size-80"
           >
             <Image src={logoSrc} alt={`${title} Logo`} fill className="object-contain" priority />
           </motion.div>
-          
-          {/* TITLE: Slides up and fades in slightly after the logo */}
+        </div>
+
+        {/* TITLE: bottom, above carousel dots */}
+        <div
+          className={`pointer-events-auto w-full px-4 text-center ${
+            isCarousel ? "pb-14 md:pb-16" : "pb-10 md:pb-12"
+          }`}
+        >
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.55, ease: cinematicEase }}
-            className={`font-unbounded text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] ${accentTextClass}`}
+            className={`font-unbounded text-3xl font-black uppercase tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] sm:text-4xl md:text-5xl lg:text-6xl ${accentTextClass}`}
           >
             {title}
           </motion.h1>
-
         </div>
       </motion.div>
     </section>
@@ -503,6 +600,7 @@ export default function CompanyPage({
   paragraphs,
   paragraphSubtitles,
   heroImage = "/images/mais.jpg",
+  heroImages,
   showcaseImages,
   accentColor = "green",
   logoSrc,
@@ -547,6 +645,7 @@ export default function CompanyPage({
             title={title} 
             logoSrc={logoSrc} 
             heroImage={heroImage}
+            heroImages={heroImages}
             accentTextClass={accentTextClass} 
           />
 

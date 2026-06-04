@@ -15,7 +15,11 @@ export default function AgricoleBundunduPage() {
         "Chaîne de valeur : **production** à la **distribution**",
         "**Territoires**, communautés et modèles **pérennes**",
       ]}
-      heroImage="/images/bundundu/CASSAVA FIELD.JPG"
+      heroImages={[
+        "/images/bundundu/DJI_20251125123306_0693_D.webp",
+        "/images/bundundu/DJI_20251112123547_0512_D.webp",
+        "/images/bundundu/DJI_20251028123130_0313_D.webp",
+      ]}
       showcaseImages={[
         "/images/bundundu/BANANA DEMO FIELD.JPG",
         "/images/bundundu/SILO.JPG",
