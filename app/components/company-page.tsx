@@ -183,10 +183,13 @@ function HeroSection({
 
       <motion.div 
         style={{ opacity: heroFade }}
-        className="relative z-10 flex flex-1 flex-col w-full pointer-events-none"
+        className="relative z-10 flex flex-1 flex-col justify-end w-full pointer-events-none"
       >
-        {/* LOGO: centered */}
-        <div className="flex flex-1 items-center justify-center">
+        <div
+          className={`pointer-events-auto flex w-full flex-col items-center gap-5 px-4 text-center sm:gap-6 md:gap-7 ${
+            isCarousel ? "pb-14 md:pb-16" : "pb-10 md:pb-12"
+          }`}
+        >
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -195,14 +198,7 @@ function HeroSection({
           >
             <Image src={logoSrc} alt={`${title} Logo`} fill className="object-contain" priority />
           </motion.div>
-        </div>
 
-        {/* TITLE: bottom, above carousel dots */}
-        <div
-          className={`pointer-events-auto w-full px-4 text-center ${
-            isCarousel ? "pb-14 md:pb-16" : "pb-10 md:pb-12"
-          }`}
-        >
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
