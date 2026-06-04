@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, type LucideIcon, Fish, Leaf, Sprout, Wheat } from "lucide-react";
+import { type LucideIcon, Fish, Leaf, Sprout, Wheat } from "lucide-react";
 import { HeroFooter } from "./hero-footer";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
@@ -27,6 +27,8 @@ interface CompanyPageProps {
   accentColor?: "green" | "yellow" | "blue";
   logoSrc: string;
   iconName?: keyof typeof iconMap;
+  /** Vimeo video ID — full-viewport reveal after the split showcase when set. */
+  vimeoVideoId?: string;
 }
 
 // =========================================================================
@@ -293,19 +295,27 @@ function SplitShowcaseSubtitle({
   );
 }
 
+function vimeoBackgroundSrc(videoId: string) {
+  return `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&muted=1&loop=1&badge=0&title=0&byline=0&portrait=0&controls=0&autopause=0&playsinline=1&dnt=1`;
+}
+
 function SplitShowcase({
   title,
   paragraphs,
   paragraphSubtitles,
   images,
+  vimeoVideoId,
 }: {
   title: string;
   paragraphs: string[];
   paragraphSubtitles: string[];
   images: { id: string; src: string }[];
+  vimeoVideoId?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const videoSlideIndex = vimeoVideoId ? paragraphs.length : -1;
+  const totalSlides = paragraphs.length + (vimeoVideoId ? 1 : 0);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -314,20 +324,21 @@ function SplitShowcase({
   const [activeIndex, setActiveIndex] = useState(0);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const sectionLength = 1 / paragraphs.length;
-    const index = Math.min(Math.floor((latest + 0.01) / sectionLength), paragraphs.length - 1);
+    const sectionLength = 1 / totalSlides;
+    const index = Math.min(Math.floor((latest + 0.01) / sectionLength), totalSlides - 1);
     setActiveIndex(index);
   });
 
   const currentPreset = SLIDE_PRESETS[activeIndex % SLIDE_PRESETS.length];
+  const onVideoSlide = vimeoVideoId != null && activeIndex === videoSlideIndex;
 
   // Ultra-smooth Apple-style spring easing (cubic-bezier tuple)
   const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
   return (
-    <div ref={containerRef} style={{ height: `${paragraphs.length * 100}vh` }} className="relative w-full z-20">
+    <div ref={containerRef} style={{ height: `${totalSlides * 100}vh` }} className="relative w-full z-20">
       
-      <div className="sticky top-0 h-screen w-full flex flex-col lg:flex-row overflow-hidden">
+      <div className="sticky top-0 relative h-screen w-full flex flex-col lg:flex-row overflow-hidden">
 
         {/* LEFT HALF: Crossfading Images with Slide & Scale */}
         <div className="relative w-full lg:w-1/2 h-[40vh] lg:h-full overflow-hidden bg-black">
@@ -356,18 +367,42 @@ function SplitShowcase({
           ))}
         </div>
 
+        {/* Full-viewport video — same crossfade as image slides */}
+        {vimeoVideoId ? (
+          <motion.div
+            className="absolute inset-0 z-30 overflow-hidden bg-black"
+            initial={{ opacity: 0, scale: 1.1, y: "5%" }}
+            animate={{
+              opacity: onVideoSlide ? 1 : 0,
+              scale: onVideoSlide ? 1 : 1.1,
+              y: onVideoSlide ? "0%" : "5%",
+            }}
+            transition={{ duration: 1, ease: cinematicEase }}
+          >
+            <iframe
+              src={vimeoBackgroundSrc(vimeoVideoId)}
+              title="MH"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              referrerPolicy="strict-origin-when-cross-origin"
+              tabIndex={-1}
+            />
+          </motion.div>
+        ) : null}
+
         {/* RIGHT HALF: Smooth Animated Color Transitions */}
         <motion.div 
           animate={{
             backgroundColor: currentPreset.bgColorHex,
-            color: currentPreset.textColorHex
+            color: currentPreset.textColorHex,
+            opacity: onVideoSlide ? 0 : 1,
           }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="relative w-full lg:w-1/2 h-[60vh] lg:h-full flex flex-col justify-between p-8 sm:p-12 lg:p-20 xl:p-24"
         >
           {/* Top: Pill Pagination Navigation */}
           <div className="flex items-center gap-2 lg:gap-3">
-            {paragraphs.map((_, i) => {
+            {Array.from({ length: totalSlides }, (_, i) => {
               const isActive = activeIndex === i;
               return (
                 <motion.div
@@ -458,7 +493,6 @@ function SplitShowcase({
   );
 }
 
-
 // =========================================================================
 // MAIN PAGE COMPONENT
 // =========================================================================
@@ -473,6 +507,7 @@ export default function CompanyPage({
   accentColor = "green",
   logoSrc,
   iconName,
+  vimeoVideoId,
 }: CompanyPageProps) {
   const Icon = iconName ? iconMap[iconName] : undefined;
 
@@ -527,6 +562,7 @@ export default function CompanyPage({
             paragraphs={paragraphs}
             paragraphSubtitles={paragraphSubtitles}
             images={scrollCards}
+            vimeoVideoId={vimeoVideoId}
           />
 
         </main>

@@ -24,6 +24,7 @@ export default function AgricoleBundunduPage() {
       accentColor="yellow"
       logoSrc="/images/logos/Asset%2012@4x.png"
       iconName="Wheat"
+      vimeoVideoId="1198419679"
     />
   );
 }
