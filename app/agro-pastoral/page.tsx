@@ -15,7 +15,16 @@ export default function AgroPastoralPage() {
         "**Rendements**, ressources et **communautés** locales",
         "Modèle **agro-pastoral** performant et **national**",
       ]}
-      heroImage="/images/2_mais.jpg"
+      heroImages={[
+        "/images/agro-pastoral/HR5A4473.JPG",
+        "/images/agro-pastoral/HR5A4470.JPG",
+        "/images/agro-pastoral/HR5A4468.JPG",
+      ]}
+      showcaseImages={[
+        "/images/agro-pastoral/HR5A4469.JPG",
+        "/images/agro-pastoral/20210817_132159.jpg",
+        "/images/agro-pastoral/HR5A4471.JPG",
+      ]}
       accentColor="green"
       logoSrc="/images/logos/Asset%2015@4x.png"
       iconName="Leaf"

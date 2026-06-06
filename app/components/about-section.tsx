@@ -55,7 +55,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-20 relative w-full max-w-full overflow-x-clip bg-gradient-to-b from-background from-0% via-cap-yellow/[0.08] via-50% to-background to-100% py-20 md:py-28 text-foreground"
+      className="scroll-mt-20 relative w-full max-w-full bg-gradient-to-b from-background from-0% via-cap-yellow/[0.08] via-50% to-background to-100% py-20 md:py-28 text-foreground"
     >
       {/* Manifesto-Style Intro (Sticky + Fill + Fade) */}
       <IntroSequence />
@@ -73,7 +73,7 @@ export default function AboutSection() {
         <div className="relative flex flex-col items-start gap-16 lg:flex-row lg:gap-24">
           
           {/* Left Column: Sticky Title & Watermark */}
-          <div className="relative z-10 shrink-0 lg:sticky lg:top-32 lg:w-[40%]">
+          <div className="relative z-10 shrink-0 lg:sticky lg:top-32 lg:w-[40%] lg:self-start">
             {/* Massive Typographic Watermark */}
             <div className="absolute -left-6 -top-16 -z-10 select-none font-unbounded text-[10rem] font-black leading-none text-cap-dark/[0.06] md:text-[14rem]">
               2018
