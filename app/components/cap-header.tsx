@@ -39,9 +39,9 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
   },
 ];
 
-const HASH_NAV_ITEMS: { label: string; href: string }[] = [
-  { label: "DURABILITÉ", href: "#sustainability" },
-  { label: "SOCIAL", href: "#societe" },
+const PAGE_NAV_ITEMS: { label: string; href: string }[] = [
+  { label: "DURABILITÉ", href: "/durabilite" },
+  { label: "SOCIAL", href: "/social" },
 ];
 
 
@@ -411,7 +411,7 @@ export default function CapHeader() {
               </AnimatePresence>
             </div>
 
-            {HASH_NAV_ITEMS.map((item, i) => {
+            {PAGE_NAV_ITEMS.map((item, i) => {
               const slotIndex = 2 + i;
               return (
                 <div
@@ -430,13 +430,16 @@ export default function CapHeader() {
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <a
-                    href={pathname === "/" ? item.href : `/${item.href}`}
-                    onClick={(e) => handleHashNavClick(e, item.href)}
+                  <Link
+                    href={item.href}
                     className={DESKTOP_NAV_LINK_CLASS}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setCompaniesMenuPinned(false);
+                    }}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </div>
               );
             })}
@@ -563,7 +566,7 @@ export default function CapHeader() {
               </AnimatePresence>
             </motion.div>
 
-            {HASH_NAV_ITEMS.map((item, i) => (
+            {PAGE_NAV_ITEMS.map((item, i) => (
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -574,13 +577,13 @@ export default function CapHeader() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <a
-                  href={pathname === "/" ? item.href : `/${item.href}`}
+                <Link
+                  href={item.href}
                   className={mobileLinkClass}
-                  onClick={(e) => handleHashNavClick(e, item.href)}
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               </motion.div>
             ))}
 
@@ -588,7 +591,7 @@ export default function CapHeader() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.16 + HASH_NAV_ITEMS.length * 0.08,
+                delay: 0.16 + PAGE_NAV_ITEMS.length * 0.08,
                 duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
               }}

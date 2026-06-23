@@ -30,21 +30,21 @@ const ACTIVITIES: { icon: LucideIcon; title: string; text: string; bgImage: stri
     icon: Wheat,
     title: "Cultures Vivrières",
     text: "Transformation du maïs et du manioc en farines.",
-    bgImage: "/images/bundundu/BANANA DEMO FIELD.JPG",
+    bgImage: "/images/bundundu/BANANADEMOFIELD.webp",
     href: "/agricole-bundundu",
   },
   {
     icon: Leaf,
     title: "Maraîchère & Café",
     text: "Production maraîchère, café et arachide.",
-    bgImage: "/images/mais.jpg",
+    bgImage: "/images/mais.webp",
     href: "/agro-pastoral",
   },
   {
     icon: Fish,
     title: "Pisciculture",
     text: "Élevage de poissons d'eau douce africains.",
-    bgImage: "/images/pisiculture/DJI_0312.JPG",
+    bgImage: "/images/pisiculture/DJI_0312.webp",
     href: "/pisciculture",
   },
 ];
@@ -110,7 +110,7 @@ export default function AboutSection() {
               {/* Main image with subtle tilt — same width as manifesto block above; fixed height preserved */}
               <div className="relative h-[325px] w-full overflow-hidden rounded-[2.5rem] shadow-2xl shadow-cap-green/20 transition-transform duration-700 -rotate-3 hover:rotate-0 hover:scale-[1.02] sm:h-[400px]">
                 <Image
-                  src="/images/2_mais.jpg"
+                  src="/images/2_mais.webp"
                   alt="Agriculture locale"
                   fill
                   className="object-cover"
@@ -123,7 +123,7 @@ export default function AboutSection() {
               {/* Overlapping secondary image (circular, breaking the grid) */}
               <div className="absolute -bottom-6 -right-12 sm:-right-16 h-32 w-32 sm:h-40 sm:w-40 rounded-full border-8 border-background overflow-hidden shadow-xl z-10 transition-transform duration-700 hover:scale-110">
                 <Image
-                  src="/images/mais.jpg"
+                  src="/images/mais.webp"
                   alt="Détail agriculture"
                   fill
                   className="object-cover"
@@ -231,7 +231,7 @@ export default function AboutSection() {
       <div className="relative z-10 w-full min-w-0">
         <AboutEvolutionHorizontal branches={ORGANIZATION_BRANCHES.map(branch => ({
           ...branch,
-          bgImage: branch.name === "PISCICULTURE" ? "/images/pisiculture/DJI_0312.JPG" : branch.name === "AGRO-PASTORAL" ? "/images/mais.jpg" : branch.name === "AGRO PALM" ? "/images/agro-palm/hero.jpeg" : "/images/bundundu/BANANA DEMO FIELD.JPG",
+          bgImage: branch.name === "PISCICULTURE" ? "/images/pisiculture/DJI_0312.webp" : branch.name === "AGRO-PASTORAL" ? "/images/mais.webp" : branch.name === "AGRO PALM" ? "/images/agro-palm/hero.jpeg" : "/images/bundundu/BANANADEMOFIELD.webp",
         }))} />
       </div>
 

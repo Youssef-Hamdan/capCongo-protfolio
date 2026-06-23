@@ -595,7 +595,7 @@ export default function CompanyPage({
   intro,
   paragraphs,
   paragraphSubtitles,
-  heroImage = "/images/mais.jpg",
+  heroImage = "/images/mais.webp",
   heroImages,
   showcaseImages,
   accentColor = "green",
@@ -614,8 +614,8 @@ export default function CompanyPage({
       ? showcaseImages.map((src, i) => ({ id: `showcase-${i}`, src }))
       : [
           { id: "img1", src: heroImage },
-          { id: "img2", src: heroImage === "/images/mais.jpg" ? "/images/2_mais.jpg" : "/images/mais.jpg" },
-          { id: "img3", src: "/images/mais.jpg" },
+          { id: "img2", src: heroImage === "/images/mais.webp" ? "/images/2_mais.webp" : "/images/mais.webp" },
+          { id: "img3", src: "/images/mais.webp" },
           { id: "img4", src: heroImage },
         ];
 

@@ -16,14 +16,14 @@ export default function AgroPastoralPage() {
         "Modèle **agro-pastoral** performant et **national**",
       ]}
       heroImages={[
-        "/images/agro-pastoral/HR5A4473.JPG",
-        "/images/agro-pastoral/HR5A4470.JPG",
-        "/images/agro-pastoral/HR5A4468.JPG",
+        "/images/agro-pastoral/HR5A4473.webp",
+        "/images/agro-pastoral/HR5A4470.webp",
+        "/images/agro-pastoral/HR5A4468.webp",
       ]}
       showcaseImages={[
-        "/images/agro-pastoral/HR5A4469.JPG",
-        "/images/agro-pastoral/20210817_132159.jpg",
-        "/images/agro-pastoral/HR5A4471.JPG",
+        "/images/agro-pastoral/HR5A4469.webp",
+        "/images/agro-pastoral/20210817_132159.webp",
+        "/images/agro-pastoral/HR5A4471.webp",
       ]}
       accentColor="green"
       logoSrc="/images/logos/Asset%2015@4x.png"

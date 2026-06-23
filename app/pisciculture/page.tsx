@@ -15,15 +15,20 @@ export default function PisciculturePage() {
         "**Maîtrise** de la production et solutions **pisciculteurs**",
         "**Aquaculture** en RDC et **sécurité alimentaire**",
       ]}
-      heroImage="/images/pisiculture/DJI_0307.JPG"
+      heroImages={[
+        "/images/pisiculture/fish3.webp",
+        "/images/pisiculture/DJI_0307.webp",
+        "/images/pisiculture/fish1.webp",
+      ]}
       showcaseImages={[
-        "/images/pisiculture/HR5A3722.JPG",
-        "/images/pisiculture/HR5A3714.JPG",
-        "/images/pisiculture/DJI_0312.JPG",
+        "/images/pisiculture/HR5A3722.webp",
+        "/images/pisiculture/HR5A3714.webp",
+        "/images/pisiculture/DJI_0312.webp",
       ]}
       accentColor="blue"
       logoSrc="/images/logos/Asset%2013@4x.png"
       iconName="Fish"
+      vimeoVideoId="1203824965"
     />
   );
 }

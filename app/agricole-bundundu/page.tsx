@@ -21,9 +21,9 @@ export default function AgricoleBundunduPage() {
         "/images/bundundu/DJI_20251028123130_0313_D.webp",
       ]}
       showcaseImages={[
-        "/images/bundundu/BANANA DEMO FIELD.JPG",
-        "/images/bundundu/SILO.JPG",
-        "/images/bundundu/WeedingONION.JPG",
+        "/images/bundundu/BANANADEMOFIELD.webp",
+        "/images/bundundu/SILO.webp",
+        "/images/bundundu/WeedingONION.webp",
       ]}
       accentColor="yellow"
       logoSrc="/images/logos/Asset%2012@4x.png"

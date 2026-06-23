@@ -77,8 +77,11 @@ export default function SiteFooter() {
         <Link href="#about" className="hover:text-cap-dark-green transition">
           À propos
         </Link>
-        <Link href="#sustainability" className="hover:text-cap-dark-green transition">
+        <Link href="/durabilite" className="hover:text-cap-dark-green transition">
           Durabilité
+        </Link>
+        <Link href="/social" className="hover:text-cap-dark-green transition">
+          Social
         </Link>
         <Link href="#careers" className="hover:text-cap-dark-green transition">
           Carrières

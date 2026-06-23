@@ -146,7 +146,7 @@ export default function HeroSection() {
       {/* --- BACKGROUND LAYER --- */}
       <div className="absolute inset-0 z-0 bg-cap-dark">
         <Image
-          src="/images/mais.jpg"
+          src="/images/mais.webp"
           alt="Production agricole locale — champ"
           fill
           className="hero-bg-image object-cover object-center"

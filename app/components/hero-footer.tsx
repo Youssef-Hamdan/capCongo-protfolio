@@ -28,7 +28,7 @@ export function HeroFooter() {
         <div className="relative z-10 -mb-20 md:-mb-24">
           <div className="group relative h-[min(22rem,70vw)] overflow-hidden rounded-2xl shadow-[0_24px_60px_-12px_rgba(29,29,27,0.25)] md:h-96">
             <Image
-              src="/images/mais.jpg"
+              src="/images/mais.webp"
               alt="Champs — CAP Congo"
               fill
               className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.03]"
@@ -156,8 +156,11 @@ export function HeroFooter() {
               <Link href="#about" className="hover:text-cap-yellow">
                 À propos
               </Link>
-              <Link href="#sustainability" className="hover:text-cap-yellow">
+              <Link href="/durabilite" className="hover:text-cap-yellow">
                 Durabilité
+              </Link>
+              <Link href="/social" className="hover:text-cap-yellow">
+                Social
               </Link>
               <Link href="#partnerships" className="hover:text-cap-yellow">
                 Partenariats
