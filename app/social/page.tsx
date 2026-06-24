@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -10,6 +9,7 @@ import {
   useInView, 
   useMotionValue, 
   useSpring, 
+  Variants,
   AnimatePresence,
   type MotionValue,
 } from 'framer-motion';
@@ -283,7 +283,8 @@ const stories = [
 ];
 
 // --- Smooth Staggered Animation ---
-const textVariants = {
+// FIX APPLIED HERE: Added ": Variants" to strictly type the object
+const textVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
@@ -317,8 +318,7 @@ export function StoryRotator() {
                 className="object-cover"
                 priority={idx === 0}
               />
-              {/* 
-                Alternating Gradient:
+              {/* Alternating Gradient:
                 If text is on left (isEven), fade from dark left to clear right.
                 If text is on right (!isEven), fade from dark right to clear left.
                 Mobile is always bottom-to-top.

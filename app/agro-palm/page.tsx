@@ -15,15 +15,19 @@ export default function AgroPalmPage() {
         "**Ressources** nationales, **emplois** et communautés",
         "Méthodes **responsables** et conformité **industrielle**",
       ]}
-      heroImage="/images/agro-palm/hero.jpeg"
+      heroImages={[
+        "/images/agro-palm/image3.jpeg",
+        "/images/agro-palm/hero.jpeg",
+      ]}
       showcaseImages={[
         "/images/agro-palm/image2.jpeg", 
         "/images/agro-palm/image1.jpg",
-        "/images/agro-palm/image3.jpeg",
+        "/images/agro-palm/agropalm_1.webp",
       ]}
       accentColor="green"
       logoSrc="/images/logos/Asset%2014@4x.png"
       iconName="Sprout"
+      vimeoVideoId="1204217787"
     />
   );
 }

@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/agricole-bundundu/page": "app/agricole-bundundu/page.js",
+  "/agro-palm/page": "app/agro-palm/page.js",
+  "/agro-pastoral/page": "app/agro-pastoral/page.js",
+  "/durabilite/page": "app/durabilite/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/pisciculture/page": "app/pisciculture/page.js",
+  "/social/page": "app/social/page.js"
+}
