@@ -70,26 +70,6 @@ export default function SiteFooter() {
         </a>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10 text-sm uppercase tracking-widest text-cap-grey mb-12">
-        <Link href="#hero" className="hover:text-cap-dark-green transition">
-          Accueil
-        </Link>
-        <Link href="#about" className="hover:text-cap-dark-green transition">
-          À propos
-        </Link>
-        <Link href="/durabilite" className="hover:text-cap-dark-green transition">
-          Durabilité
-        </Link>
-        <Link href="/social" className="hover:text-cap-dark-green transition">
-          Social
-        </Link>
-        <Link href="#careers" className="hover:text-cap-dark-green transition">
-          Carrières
-        </Link>
-        <Link href="#contact" className="hover:text-cap-dark-green transition">
-          Contact
-        </Link>
-      </div>
 
       <p className="text-xs tracking-widest text-cap-grey uppercase">
         © {new Date().getFullYear()} CAP Congo ·{" "}

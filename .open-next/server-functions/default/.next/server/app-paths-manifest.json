@@ -4,6 +4,8 @@
   "/agricole-bundundu/page": "app/agricole-bundundu/page.js",
   "/agro-palm/page": "app/agro-palm/page.js",
   "/agro-pastoral/page": "app/agro-pastoral/page.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/contact/page": "app/contact/page.js",
   "/durabilite/page": "app/durabilite/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",

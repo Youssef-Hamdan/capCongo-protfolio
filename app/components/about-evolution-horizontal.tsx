@@ -140,7 +140,7 @@ export function AboutEvolutionHorizontal({ branches }: AboutEvolutionHorizontalP
 
                 {/* 2. MASSIVE DATE WATERMARK (Anchored Top-Left) */}
                 <div
-                  className="pointer-events-none absolute left-4 top-16 -z-10 select-none font-unbounded text-[10rem] font-black leading-none text-cap-dark/[0.11] sm:left-8 sm:top-20 md:left-12 md:top-24 md:text-[14rem]"
+                  className="pointer-events-none absolute left-4 top-16 -z-10 select-none font-unbounded text-[8rem] font-black leading-none text-cap-dark/[0.11] sm:left-8 sm:top-20 md:left-12 md:top-24 md:text-[14rem]"
                   aria-hidden
                 >
                   {branch.year}

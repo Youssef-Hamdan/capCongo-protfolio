@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
   ArrowUp,
   Mail,
   Phone,
@@ -11,7 +10,7 @@ import {
 
 const PHONE_DISPLAY = "0895 532 443";
 const PHONE_HREF = "tel:+243895532443";
-const EMAIL = "marketing.capcongo2022@gmail.com";
+const EMAIL = "info@cap-congo.com";
 
 /** Circular emblem (`public/images/logos/Asset 11@4x.png`). */
 const FOOTER_MARK_SRC = "/images/logos/Asset%2011@4x.png";
@@ -23,10 +22,11 @@ export function HeroFooter() {
   };
 
   return (
-    <section className="bg-background pt-24 font-sans md:pt-32">
-      <div className="mx-auto w-[min(100%,80rem)] px-6">
+    <section className="bg-background pt-10 font-sans md:pt-32">
+      {/* Top Banner Wrapper */}
+      <div className="mx-auto w-[min(100%,80rem)] px-4 sm:px-6">
         <div className="relative z-10 -mb-20 md:-mb-24">
-          <div className="group relative h-[min(22rem,70vw)] overflow-hidden rounded-2xl shadow-[0_24px_60px_-12px_rgba(29,29,27,0.25)] md:h-96">
+          <div className="group relative h-[min(24rem,75vw)] overflow-hidden rounded-2xl shadow-[0_24px_60px_-12px_rgba(29,29,27,0.25)] sm:h-[22rem] md:h-96">
             <Image
               src="/images/mais.webp"
               alt="Champs — CAP Congo"
@@ -34,9 +34,9 @@ export function HeroFooter() {
               className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.03]"
               sizes="(max-width: 1280px) 100vw, 80rem"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-cap-forest/85 via-cap-dark-green/70 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-16 lg:p-24">
-              <h2 className="mb-6 max-w-2xl font-unbounded text-3xl font-bold leading-tight tracking-tight text-background md:text-5xl lg:text-6xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-cap-forest/90 via-cap-dark-green/70 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center p-6 sm:p-12 md:p-16 lg:p-24">
+              <h2 className="max-w-2xl font-unbounded text-2xl font-bold leading-tight tracking-tight text-background sm:text-3xl md:text-5xl lg:text-6xl">
                 Produire local, nourrir durablement.
               </h2>
             </div>
@@ -44,44 +44,54 @@ export function HeroFooter() {
         </div>
       </div>
 
-      <div className="w-full px-6">
-        <div className="rounded-t-3xl bg-cap-ink pb-16 pt-36 text-background md:px-12 md:pb-20 md:pt-40">
+      {/* Main Footer Block */}
+      <div className="w-full">
+        {/* Adjusted px-4 on mobile to remove side spacing */}
+        <div className="rounded-t-3xl bg-cap-ink px-4 pb-12 pt-24 text-background sm:px-10 md:px-12 md:pb-16 md:pt-40">
           <div className="mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 gap-12 pb-10 lg:grid-cols-2 lg:gap-16 lg:pb-14">
+            
+            {/* Split Content: Branding vs Contact */}
+            <div className="grid grid-cols-1 gap-12 border-b border-background/15 pb-12 lg:grid-cols-2 lg:gap-16">
+              
+              {/* Left Column: Brand Identifiers */}
               <div className="space-y-10">
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+                {/* FIX: Added 'items-start' for mobile so the logo doesn't stretch to 100% width */}
+                <div className="flex flex-col items-start gap-5 sm:flex-row sm:gap-8">
                   <Link
                     href="/"
-                    className="group relative shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cap-ink rounded-full"
+                    // FIX: Added 'w-fit' to guarantee the link wrapper only hugs the logo
+                    className="group relative shrink-0 w-fit outline-none focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cap-ink rounded-full"
                     aria-label="CAP Congo — accueil"
                   >
                     <span className="block rounded-full bg-background p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] ring-2 ring-cap-green/35 transition group-hover:ring-cap-yellow/60">
-                      <span className="relative block size-[6.5rem] sm:size-28 md:size-32">
+                      <span className="relative block size-20 sm:size-24 md:size-28 lg:size-32">
                         <Image
                           src={FOOTER_MARK_SRC}
                           alt="CAP CONGO SARL"
                           fill
                           className="object-contain"
-                          sizes="128px"
+                          sizes="(max-width: 640px) 80px, 128px"
                         />
                       </span>
                     </span>
                   </Link>
+                  
                   <div className="min-w-0 flex-1">
-                    <p className="font-unbounded text-xs font-semibold uppercase tracking-[0.2em] text-cap-green">
+                    <p className="font-unbounded text-[10px] font-semibold uppercase tracking-[0.2em] text-cap-green sm:text-xs">
                       CAP Congo
                     </p>
-                    <p className="mt-2 font-unbounded text-2xl font-bold uppercase tracking-tight text-background md:text-3xl">
+                    <p className="mt-1.5 font-unbounded text-xl font-bold uppercase tracking-tight text-background sm:text-2xl md:text-3xl">
                       CAP CONGO <span className="text-cap-yellow">SARL</span>
                     </p>
-                    <p className="mt-4 max-w-md text-sm leading-relaxed text-background/65">
+                    <p className="mt-3.5 max-w-md text-sm leading-relaxed text-background/65">
                       Qualité, traçabilité et performance sur toute la chaîne de valeur agricole.
                     </p>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="mb-4 font-unbounded text-[11px] font-semibold uppercase tracking-[0.25em] text-cap-green/90">
+                {/* Social Channels */}
+                <div className="space-y-3">
+                  <h4 className="font-unbounded text-[11px] font-semibold uppercase tracking-[0.25em] text-cap-green/90">
                     Réseaux sociaux
                   </h4>
                   <div className="flex flex-wrap gap-3">
@@ -116,12 +126,13 @@ export function HeroFooter() {
                 </div>
               </div>
 
+              {/* Right Column: Contact Details */}
               <div className="space-y-6 lg:pl-8 lg:text-right" id="contact">
                 <h3 className="font-unbounded text-lg font-semibold text-background md:text-xl">
                   Contact
                 </h3>
                 <div className="space-y-6 text-background/80">
-                  <p>
+                  <div>
                     <span className="block font-unbounded text-[10px] font-semibold uppercase tracking-wider text-cap-green">
                       Téléphone
                     </span>
@@ -132,62 +143,41 @@ export function HeroFooter() {
                       <Phone className="size-4 shrink-0 opacity-80" aria-hidden />
                       {PHONE_DISPLAY}
                     </a>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <span className="block font-unbounded text-[10px] font-semibold uppercase tracking-wider text-cap-green">
                       E-mail
                     </span>
                     <a
                       href={`mailto:${EMAIL}`}
-                      className="mt-1 inline-flex items-start gap-2 break-all text-left text-lg font-medium text-background transition hover:text-cap-yellow lg:text-right"
+                      className="mt-1 inline-flex items-center gap-2 break-all text-left text-lg font-medium text-background transition hover:text-cap-yellow lg:justify-end lg:text-right"
                     >
-                      <Mail className="mt-1 size-4 shrink-0 opacity-80" aria-hidden />
+                      <Mail className="size-4 shrink-0 opacity-80" aria-hidden />
                       {EMAIL}
                     </a>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <nav className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-background/15 py-10 text-sm font-medium text-background/70 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center lg:gap-x-10 lg:gap-y-2">
-              <Link href="#hero" className="hover:text-cap-yellow">
-                Accueil
-              </Link>
-              <Link href="#about" className="hover:text-cap-yellow">
-                À propos
-              </Link>
-              <Link href="/durabilite" className="hover:text-cap-yellow">
-                Durabilité
-              </Link>
-              <Link href="/social" className="hover:text-cap-yellow">
-                Social
-              </Link>
-              <Link href="#partnerships" className="hover:text-cap-yellow">
-                Partenariats
-              </Link>
-              <Link href="#careers" className="hover:text-cap-yellow">
-                Carrières
-              </Link>
-              <Link href="#contact" className="hover:text-cap-yellow">
-                Contact
-              </Link>
-            </nav>
-
-            <div className="flex flex-col items-center justify-between gap-6 border-t border-background/15 py-8 md:flex-row">
-              <span className="text-center font-unbounded text-sm font-semibold text-background/90 md:text-left">
+            {/* Bottom Row: Copy + Utility Scroll Action */}
+            <div className="flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
+              <span className="text-center font-unbounded text-xs font-semibold text-background/80 sm:text-sm md:text-left">
                 © {new Date().getFullYear()} CAP Congo SARL
               </span>
+              
               <button
                 type="button"
                 onClick={scrollTop}
-                className="flex items-center gap-2 text-sm text-background/55 transition hover:text-background"
+                className="group flex items-center gap-2 text-sm text-background/60 transition hover:text-background"
               >
                 Haut de page
-                <span className="flex size-10 items-center justify-center rounded-full bg-cap-green text-background transition hover:bg-cap-yellow hover:text-cap-dark">
+                <span className="flex size-10 items-center justify-center rounded-full bg-cap-green text-background transition group-hover:bg-cap-yellow group-hover:text-cap-dark">
                   <ArrowUp className="size-5" strokeWidth={2} aria-hidden />
                 </span>
               </button>
             </div>
+
           </div>
         </div>
       </div>

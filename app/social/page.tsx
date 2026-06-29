@@ -13,7 +13,7 @@ import {
   AnimatePresence,
   type MotionValue,
 } from 'framer-motion';
-
+import { HeroFooter } from '../components/hero-footer';
 // ==========================================
 // 1. ANIMATED STATS COMPONENT
 // ==========================================
@@ -398,6 +398,7 @@ export function StoryRotator() {
 
 export default function SocialImpactPage() {
   return (
+    <div className="relative z-10 flex flex-col flex-1">
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
       <SocialImpactHero />
@@ -406,9 +407,9 @@ export default function SocialImpactPage() {
       <div className="border-b border-border bg-card py-12">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
-            <AnimatedStat value={50000} label="Meals Distributed" suffix="+" />
-            <AnimatedStat value={12} label="Hospitals Supported" />
-            <AnimatedStat value={5000} label="Families Clothed" suffix="+" />
+            <AnimatedStat value={360} label="Students per School" suffix="+" />
+            <AnimatedStat value={20} label="Bench per Classroom" />
+            <AnimatedStat value={10} label="Health Center Bed Capacity" suffix="+" />
           </div>
         </div>
       </div>
@@ -416,5 +417,8 @@ export default function SocialImpactPage() {
       <StoryRotator/>
   
     </main>
+
+    <HeroFooter />
+    </div>
   );
 }

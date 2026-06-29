@@ -44,19 +44,15 @@ const PAGE_NAV_ITEMS: { label: string; href: string }[] = [
   { label: "SOCIAL", href: "/social" },
 ];
 
-
-
 const mobileLinkClass =
   "text-cap-green text-3xl sm:text-4xl font-bold font-unbounded tracking-tight hover:text-cap-dark-green transition-colors";
 
 const mobileContactLinkClass =
   "text-cap-grey text-3xl sm:text-4xl font-bold font-unbounded tracking-tight hover:text-cap-dark transition-colors";
 
-/** Scroll distance (px) over which the bar background goes from transparent to full opacity. */
 const SCROLL_BG_OPACITY_RANGE = 110;
 
 function headerSurfaceStyle(t: number): CSSProperties {
-  // t in [0,1]: solid white bar (light opacity at top of hero → full white when scrolled)
   const bgAlpha = 0.78 + t * 0.22;
   return {
     backgroundColor: `rgba(255, 255, 255, ${bgAlpha})`,
@@ -84,11 +80,6 @@ function getDocumentScrollY(): number {
 }
 
 const SCROLL_HIDE_THRESHOLD_Y = 56;
-
-/**
- * Horizontal wordmark (`public/images/logos/Logo Cap Congo Horizontale.png`).
- * Bump `HEADER_LOGO_REVISION` when you replace that file (cache bust).
- */
 const HEADER_LOGO_REVISION = 3;
 const HEADER_LOGO_SRC = `/images/logos/Logo%20Cap%20Congo%20Horizontale.png?v=${HEADER_LOGO_REVISION}`;
 
@@ -110,7 +101,6 @@ export default function CapHeader() {
   mobileMenuOpenRef.current = mobileMenuOpen;
 
   const companiesDropdownVisible = companiesMenuPinned || companiesMenuHover;
-
   const lenis = useContext(LenisContext)?.lenis;
 
   useEffect(() => {
@@ -223,34 +213,14 @@ export default function CapHeader() {
   return (
     <header
       data-sticky-header
-      className="fixed left-0 right-0 z-50 flex justify-center px-2 sm:px-3  md:px-4 pointer-events-none"
+      className="fixed left-0 right-0 z-50 flex justify-center px-2 sm:px-3 md:px-4 pointer-events-none"
     >
       <div
         style={{ ...headerSurfaceStyle(scrollT), ...headerTransformStyle }}
-        className="pointer-events-auto flex w-full mt-4 max-w-[min(100%,90rem)] flex-nowrap items-center  rounded-[1.25rem] border sm:rounded-[1.5rem] md:rounded-[2rem] px-2.5  sm:px-4  md:px-5 lg:px-6  will-change-transform"
+        className="pointer-events-auto flex w-full mt-4 max-w-[min(100%,90rem)] flex-nowrap items-center rounded-[1.25rem] border sm:rounded-[1.5rem] md:rounded-[2rem] px-2.5 sm:px-4 md:px-5 lg:px-6 will-change-transform"
       >
-        {/* Left: menu + logo — flex-1 balances the right side so nav stays centered in the bar */}
-        <div className="relative z-[60] flex min-w-0 flex-1 items-center justify-start gap-2 sm:gap-2.5">
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            aria-expanded={mobileMenuOpen}
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-cap-dark/[0.06] text-cap-dark outline-none transition-colors hover:bg-cap-dark/10 focus-visible:ring-2 focus-visible:ring-cap-yellow md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {mobileMenuOpen ? (
-                <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.2 }}>
-                  <X className="size-5" strokeWidth={2} aria-hidden />
-                </motion.div>
-              ) : (
-                <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.2 }}>
-                  <Menu className="size-5" strokeWidth={2} aria-hidden />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
-          
+        {/* Left: Logo Only */}
+        <div className="relative z-[60] flex min-w-0 flex-1 items-center justify-start">
           <Link
             href="/"
             aria-label="CAP Congo — accueil"
@@ -281,7 +251,6 @@ export default function CapHeader() {
         {/* Desktop Navigation — center cluster */}
         <nav className="pointer-events-auto relative z-[70] hidden shrink-0 items-center justify-center md:flex" aria-label="Principal">
           <div className="flex flex-nowrap items-center justify-center gap-0.5 lg:gap-1">
-            {/* Home */}
             <div
               className="relative"
               onMouseEnter={() => setHoveredNavSlot(0)}
@@ -314,7 +283,6 @@ export default function CapHeader() {
               </Link>
             </div>
 
-            {/* Companies dropdown */}
             <div
               ref={companiesDropdownRef}
               className="relative"
@@ -446,21 +414,38 @@ export default function CapHeader() {
           </div>
         </nav>
 
-        {/* Desktop Socials / Utility */}
-        {/* <div className={`hidden md:flex items-center ${isScrolled ? "text-cap-dark" : "text-white/90"}`}>
-          <SocialLinks className={isScrolled ? "flex space-x-4 text-sm text-cap-dark/70" : "flex space-x-4 text-sm text-white/70"} />
-        </div> */}
-
-        {/* Right: utility (grey) + icons — balances logo for centered nav */}
+        {/* Right: utility (Contact) + Mobile Menu Trigger */}
         <div className="relative z-[60] flex min-w-0 flex-1 items-center justify-end gap-1 sm:gap-1.5 md:gap-2">
+          {/* Mobile Menu Button - Visible only on mobile */}
+          <button
+            type="button"
+            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileMenuOpen}
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-cap-dark/[0.06] text-cap-dark outline-none transition-colors hover:bg-cap-dark/10 focus-visible:ring-2 focus-visible:ring-cap-yellow md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileMenuOpen ? (
+                <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.2 }}>
+                  <X className="size-5" strokeWidth={2} aria-hidden />
+                </motion.div>
+              ) : (
+                <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.2 }}>
+                  <Menu className="size-5" strokeWidth={2} aria-hidden />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+
+          {/* Desktop Contact Link */}
           <a
-            href={pathname === "/" ? "#contact" : "/#contact"}
-            onClick={(e) => handleHashNavClick(e, "#contact")}
+            href={pathname === "/" ? "/contact" : "/contact"}
+            onClick={(e) => handleHashNavClick(e, "/contact")}
             className="pointer-events-auto hidden shrink-0 rounded-lg px-1.5 py-1.5 font-sans text-[11px] font-normal text-cap-grey transition-colors hover:text-cap-dark sm:px-2 lg:text-sm md:inline-flex md:items-center"
           >
             Contact us
           </a>
-          <div className="w-10 shrink-0 md:w-0" aria-hidden />
+          
         </div>
       </div>
 
@@ -491,7 +476,7 @@ export default function CapHeader() {
                   }
                 }}
               >
-                HOME
+                ACCUEIL
               </Link>
             </motion.div>
 

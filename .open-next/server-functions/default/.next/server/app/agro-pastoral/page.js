@@ -2,7 +2,7 @@ var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/agro-pastor
 R.c("server/chunks/ssr/[root-of-the-server]__02l23aa._.js")
 R.c("server/chunks/ssr/node_modules_09r9c10._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1krlk_g.js")
-R.c("server/chunks/ssr/[root-of-the-server]__0bunn2z._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1knivdb._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__0g84hko._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__0sfi-4r._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j3._.js")
