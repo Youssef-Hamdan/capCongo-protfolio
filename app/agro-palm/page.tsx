@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
 import CompanyPage from "../components/company-page";
+
+export const metadata: Metadata = {
+  title: "Agro Palm",
+  description:
+    "Production et transformation du palmier à huile en RDC. Agro Palm maîtrise la chaîne de valeur, de la palmeraie à l'huile certifiée pour les marchés locaux et internationaux.",
+  alternates: {
+    canonical: "/agro-palm",
+  },
+  openGraph: {
+    title: "Agro Palm | CAP Congo",
+    description:
+      "Production et transformation du palmier à huile en République Démocratique du Congo.",
+    url: "/agro-palm",
+    images: [{ url: "/images/agro-palm/hero.jpeg", alt: "Agro Palm" }],
+  },
+};
 
 export default function AgroPalmPage() {
   return (

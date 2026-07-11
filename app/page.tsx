@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import HeroSection from "./components/hero-section";
 import AboutSection from "./components/about-section";
-import SustainabilitySection from "./components/sustainability-section";
-import PartnershipsSection from "./components/partnerships-section";
-import CareersSection from "./components/careers-section";
-import BrandSloganSection from "./components/brand-slogan-section";
 import { HeroFooter } from "./components/hero-footer";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} — Produire local, nourrir durablement`,
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function CAPCongoLanding() {
   return (

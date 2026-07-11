@@ -1,4 +1,23 @@
+import type { Metadata } from "next";
 import CompanyPage from "../components/company-page";
+
+export const metadata: Metadata = {
+  title: "Agro-Pastoral",
+  description:
+    "Agriculture et élevage intégrés en RDC. Agro-Pastoral allie qualité, traçabilité et développement durable au service de la sécurité alimentaire.",
+  alternates: {
+    canonical: "/agro-pastoral",
+  },
+  openGraph: {
+    title: "Agro-Pastoral | CAP Congo",
+    description:
+      "Activités agro-pastorales intégrées au service de la sécurité alimentaire en RDC.",
+    url: "/agro-pastoral",
+    images: [
+      { url: "/images/agro-pastoral/HR5A4473.webp", alt: "Agro-Pastoral" },
+    ],
+  },
+};
 
 export default function AgroPastoralPage() {
   return (

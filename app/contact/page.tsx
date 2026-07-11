@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Clock, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -45,22 +46,33 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Header Section */}
-      <section className="bg-cap-ink px-6 py-24 text-center md:px-16 lg:py-32">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-unbounded text-4xl font-bold uppercase tracking-wide text-cap-yellow md:text-6xl"
-        >
-          Contactez-nous
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl"
-        >
-          Vous avez une question concernant nos projets ou nos initiatives ? Nous serions ravis d'échanger avec vous.
-        </motion.p>
+      <section className="relative overflow-hidden px-6 py-24 text-center md:px-16 lg:py-32">
+        <Image
+          src="/images/bundundu/DJI_20251028123130_0313_D.webp"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-cap-ink/75" />
+        <div className="relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-unbounded text-4xl font-bold uppercase tracking-wide text-cap-yellow md:text-6xl"
+          >
+            Contactez-nous
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl"
+          >
+            Vous avez une question concernant nos projets ou nos initiatives ? Nous serions ravis d&apos;échanger avec vous.
+          </motion.p>
+        </div>
       </section>
 
       {/* Form & Info Section */}
@@ -192,14 +204,31 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-unbounded text-xl font-semibold mb-2">Coordonnées</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <strong className="text-foreground">E-mail :</strong> 
-                    <a href="mailto:info@capcongo.com" className="hover:text-cap-blue transition">info@capcongo.com</a>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex flex-wrap items-center gap-2">
+                    <strong className="text-foreground">E-mail :</strong>
+                    <a href="mailto:info@cap-congo.com" className="hover:text-cap-blue transition">info@cap-congo.com</a>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <strong className="text-foreground">Téléphone :</strong> 
-                    <span>+243 (0) 000 000 000</span>
+                  <li className="space-y-1">
+                    <strong className="text-foreground">Téléphone :</strong>
+                    <ul className="mt-1 space-y-2">
+                      <li>
+                        <span className="block text-xs uppercase tracking-wider text-muted-foreground/80">
+                          Agro Palm &amp; Agricole Bandundu
+                        </span>
+                        <a href="tel:+243816448888" className="hover:text-cap-blue transition">
+                          +243 816 448 888
+                        </a>
+                      </li>
+                      <li>
+                        <span className="block text-xs uppercase tracking-wider text-muted-foreground/80">
+                          Pisciculture
+                        </span>
+                        <a href="tel:+243826200575" className="hover:text-cap-blue transition">
+                          +243 826 200 575
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>

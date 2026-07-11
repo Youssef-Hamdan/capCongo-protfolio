@@ -38,7 +38,7 @@ function AnimatedStat({ value, label, suffix = '' }: StatProps) {
   useEffect(() => {
     return springValue.on("change", (latest) => {
       if (ref.current) {
-        ref.current.textContent = Intl.NumberFormat('en-US').format(Math.floor(latest));
+        ref.current.textContent = Intl.NumberFormat('fr-FR').format(Math.floor(latest));
       }
     });
   }, [springValue]);
@@ -77,7 +77,7 @@ function SocialImpactHero() {
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
           src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop"
-          alt="African women and children"
+          alt="Femmes et enfants en Afrique"
           fill
           className="object-cover opacity-80"
           priority
@@ -107,7 +107,7 @@ function SocialImpactHero() {
           <div className="space-y-4">
             
             <h1 className="font-unbounded text-4xl font-semibold uppercase tracking-wide text-cap-yellow md:text-6xl lg:text-7xl">
-              Social Impact
+              Impact social
             </h1>
             
           </div>
@@ -280,6 +280,15 @@ const stories = [
     text: "Dans le cadre de ses actions communautaires, la Société Cap Congo agricole Bandundu avait organisé une distribution de maïs en faveur de la communauté de Mushie Pentane, contribuant ainsi au soutien alimentaire et au développement des communautés locales.",
     credit: "Cap Congo Agricole Bandundu, Mushie Pentane",
   },
+  {
+    id: 5,
+    imageSrc: "/images/social/socail.webp",
+    imageAlt:
+      "Visite de l'Honorable Claude Kumpel Mpasi dans les installations de Cap Congo Agricole Bandundu",
+    title: "Visite officielle",
+    text: "Retour en images de la visite du Président de l'Assemblée Provinciale du Kwilu, l'Honorable Claude KUMPEL MPASI, dans les installations de Cap Congo Agricole Bandundu, ce 03 juillet, témoigne de l'intérêt porté au développement du secteur agricole et à la valorisation des initiatives locales.\n\nCette rencontre a permis de présenter notre vision, nos infrastructures ainsi que notre engagement en faveur d'une agriculture moderne, créatrice d'emplois et de richesse pour la province du Kwilu et la RDC. Nous remercions chaleureusement l'Honorable Président pour cette visite et les échanges constructifs autour de l'avenir de l'agriculture.\n\nEnsemble, bâtissons une agriculture forte et durable!",
+    credit: "Cap Congo Agricole Bandundu, Kwilu — 03 juillet",
+  },
 ];
 
 // --- Smooth Staggered Animation ---
@@ -336,7 +345,7 @@ export function StoryRotator() {
                 className={`absolute bottom-6 font-sans text-xs font-medium tracking-widest text-white/70 
                 ${isEven ? 'right-6 md:right-12' : 'left-6 md:left-12'}`}
               >
-                PHOTO &copy; {story.credit}
+                Crédit photo &copy; {story.credit}
               </div>
             </motion.div>
           );
@@ -377,13 +386,15 @@ export function StoryRotator() {
                   {story.title}
                 </motion.h2>
                 
-                <motion.p 
+                <motion.div
                   variants={textVariants}
-                  className={`mt-6 max-w-xl text-lg font-light leading-relaxed text-white/90 drop-shadow md:mt-8 md:text-2xl 
+                  className={`mt-6 max-w-xl space-y-4 text-lg font-light leading-relaxed text-white/90 drop-shadow md:mt-8 md:text-2xl 
                   ${isEven ? '' : 'md:ml-auto'}`}
                 >
-                  {story.text}
-                </motion.p>
+                  {story.text.split("\n\n").map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </motion.div>
 
               </div>
             </motion.div>
@@ -407,9 +418,9 @@ export default function SocialImpactPage() {
       <div className="border-b border-border bg-card py-12">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
-            <AnimatedStat value={360} label="Students per School" suffix="+" />
-            <AnimatedStat value={20} label="Bench per Classroom" />
-            <AnimatedStat value={10} label="Health Center Bed Capacity" suffix="+" />
+            <AnimatedStat value={360} label="Élèves par école" suffix="+" />
+            <AnimatedStat value={20} label="Bancs par salle de classe" />
+            <AnimatedStat value={10} label="Lits au centre de santé" suffix="+" />
           </div>
         </div>
       </div>

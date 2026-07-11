@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
 import CompanyPage from "../components/company-page";
+
+export const metadata: Metadata = {
+  title: "Pisciculture",
+  description:
+    "Production de poissons d'eau douce en RDC : tilapia et clarias. Pisciculture CAP Congo développe l'aquaculture et renforce la sécurité alimentaire.",
+  alternates: {
+    canonical: "/pisciculture",
+  },
+  openGraph: {
+    title: "Pisciculture | CAP Congo",
+    description:
+      "Pisciculture intégrée en République Démocratique du Congo — tilapia, clarias et aliments pour poissons.",
+    url: "/pisciculture",
+    images: [{ url: "/images/pisiculture/fish3.webp", alt: "Pisciculture" }],
+  },
+};
 
 export default function PisciculturePage() {
   return (

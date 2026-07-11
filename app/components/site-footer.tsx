@@ -9,17 +9,30 @@ export default function SiteFooter() {
       <h2 className="font-unbounded text-xl md:text-2xl font-semibold tracking-wide uppercase mb-4 text-cap-dark">
         Contact
       </h2>
-      <div className="mb-10 space-y-2 font-sora text-cap-grey">
+      <div className="mb-10 space-y-4 font-sora text-cap-grey">
         <p>
           <span className="text-cap-dark-green/90 text-sm uppercase tracking-wider">
             Téléphone
           </span>
           <br />
+          <span className="mt-2 block text-xs uppercase tracking-wider text-cap-grey">
+            Agro Palm &amp; Agricole Bandundu
+          </span>
           <a
-            href="tel:+243895532443"
+            href="tel:+243816448888"
             className="text-lg text-cap-dark hover:text-cap-green transition-colors"
           >
-            0895 532 443
+            +243 816 448 888
+          </a>
+          <br />
+          <span className="mt-2 block text-xs uppercase tracking-wider text-cap-grey">
+            Pisciculture
+          </span>
+          <a
+            href="tel:+243826200575"
+            className="text-lg text-cap-dark hover:text-cap-green transition-colors"
+          >
+            +243 826 200 575
           </a>
         </p>
         <p>
@@ -28,10 +41,10 @@ export default function SiteFooter() {
           </span>
           <br />
           <a
-            href="mailto:marketing.capcongo2022@gmail.com"
+            href="mailto:info@cap-congo.com"
             className="text-lg break-all text-cap-dark hover:text-cap-green transition-colors"
           >
-            marketing.capcongo2022@gmail.com
+            info@cap-congo.com
           </a>
         </p>
       </div>

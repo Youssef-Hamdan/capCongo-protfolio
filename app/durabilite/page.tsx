@@ -324,7 +324,7 @@ export function SustainabilityStoryRotator() {
                 className={`absolute bottom-6 font-sans text-xs font-medium tracking-widest text-white/70 
                 ${isEven ? 'right-6 md:right-12' : 'left-6 md:left-12'}`}
               >
-                PHOTO &copy; {story.credit}
+                Crédit photo &copy; {story.credit}
               </div>
             </motion.div>
           );
@@ -387,10 +387,8 @@ export default function SustainabilityPage() {
       {/* Impact Metrics - Ajustez les valeurs selon vos données réelles */}
       <div className="border-b border-border bg-card py-12">
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
+          <div className="flex justify-center">
             <AnimatedStat value={100} label="Engagement Responsable" suffix="%" />
-            <AnimatedStat value={50000} label="Arbres Plantés" suffix="+" />
-            <AnimatedStat value={2000} label="Hectares Restaurés" suffix="+" />
           </div>
         </div>
       </div>

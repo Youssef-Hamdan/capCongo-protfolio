@@ -443,7 +443,7 @@ export default function CapHeader() {
             onClick={(e) => handleHashNavClick(e, "/contact")}
             className="pointer-events-auto hidden shrink-0 rounded-lg px-1.5 py-1.5 font-sans text-[11px] font-normal text-cap-grey transition-colors hover:text-cap-dark sm:px-2 lg:text-sm md:inline-flex md:items-center"
           >
-            Contact us
+            Contactez-nous
           </a>
           
         </div>
@@ -586,7 +586,7 @@ export default function CapHeader() {
                 className={mobileContactLinkClass}
                 onClick={(e) => handleHashNavClick(e, "#contact")}
               >
-                Contact us
+                Contactez-nous
               </a>
             </motion.div>
           </motion.div>
