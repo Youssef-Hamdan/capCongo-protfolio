@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sora, Unbounded, Geist } from "next/font/google";
+import { Sora } from "next/font/google";
 import "./globals.css";
 import CapHeader from "./components/cap-header";
 import { JsonLd } from "./components/json-ld";
@@ -12,18 +12,10 @@ import {
   SITE_URL,
 } from "@/lib/seo";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-
 const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-sora",
-  weight: ["300", "400", "500"],
-});
-
-const unbounded = Unbounded({
-  subsets: ["latin"],
-  variable: "--font-unbounded",
-  weight: ["600", "800"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -107,13 +99,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={cn(
-        "antialiased",
-        sora.variable,
-        unbounded.variable,
-        "font-sans",
-        geist.variable,
-      )}
+      className={cn("antialiased font-sans", sora.variable)}
     >
       <body className="min-h-dvh flex min-w-0 flex-col overflow-x-clip font-sans text-foreground bg-background">
         <JsonLd />

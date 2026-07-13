@@ -46,8 +46,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-sans);
-  --font-unbounded: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sora: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-unbounded: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 
   --color-cap-green: #70aa43;
   --color-cap-dark-green: #3d632f;
