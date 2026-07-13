@@ -11,8 +11,8 @@ import {
   useSpring, 
   Variants,
   AnimatePresence,
-  type MotionValue,
 } from 'framer-motion';
+import { StickyIntroFillScroll } from '../components/about-intro-sequence';
 import { HeroFooter } from '../components/hero-footer';
 // ==========================================
 // 1. ANIMATED STATS COMPONENT
@@ -117,132 +117,12 @@ function SocialImpactHero() {
     </div>
   );
 }
-
-
-
-import { cn } from "@/lib/utils";
-
 export function SocialImpactScrollSequence() {
   return (
-    <StickyIntroFillScroll 
-      text="Engagée pour le développement communautaire, Cap Congo Agro Palm améliore le quotidien des populations locales à travers la construction d’un hôpital à Babama, des distributions alimentaires à Mushie Pentane et un soutien matériel continu à Lubunga." 
-      accentClass="text-cap-blue" // Use your preferred Cap Congo color token here
+    <StickyIntroFillScroll
+      text="Engagée pour le développement communautaire, Cap Congo Agro Palm améliore le quotidien des populations locales à travers la construction d’un hôpital à Babama, des distributions alimentaires à Mushie Pentane et un soutien matériel continu à Lubunga."
+      accentClass="text-cap-blue"
     />
-  );
-}
-
-export function StickyIntroFillScroll({
-  text,
-  accentClass = "text-cap-dark-green",
-  className = "",
-}: {
-  text: string;
-  accentClass?: string;
-  className?: string;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0.75, 0.85], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.75, 0.85], [1, 0.95]);
-
-  return (
-    <div ref={containerRef} className={cn("relative h-[300vh] w-full z-20", className)}>
-      <motion.div
-        style={{ opacity, scale }}
-        className="sticky top-0 flex h-screen w-full items-center justify-center px-5 sm:px-8 md:px-16 lg:px-20 pointer-events-none"
-      >
-        <div className="w-full max-w-5xl">
-          <IntroFillText progress={scrollYProgress} text={text} accentClass={accentClass} />
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function IntroFillText({
-  text,
-  progress,
-  accentClass = "text-cap-dark-green",
-}: {
-  text: string;
-  progress: MotionValue<number>;
-  accentClass?: string;
-}) {
-  const words = text.split(" ");
-  return (
-    <div className="flex flex-wrap justify-center text-center font-unbounded text-xl font-semibold leading-[1.5] tracking-wide sm:text-2xl md:text-3xl lg:text-4xl pointer-events-auto">
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + 1 / words.length;
-        const mappedStart = 0.15 + start * 0.5;
-        const mappedEnd = 0.15 + end * 0.5;
-        return (
-          <IntroWord
-            key={i}
-            progress={progress}
-            range={[mappedStart, mappedEnd]}
-            word={word}
-            accentClass={accentClass}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-function IntroWord({
-  word,
-  progress,
-  range,
-  accentClass = "text-cap-dark-green",
-}: {
-  word: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-  accentClass?: string;
-}) {
-  const characters = word.split("");
-  const amount = range[1] - range[0];
-  const step = amount / Math.max(characters.length, 1);
-
-  return (
-    <span className="relative mr-[0.3em] inline-block mt-2 md:mt-4">
-      {characters.map((char, i) => {
-        const start = range[0] + step * i;
-        const end = range[0] + step * (i + 1);
-        return (
-          <IntroCharacter key={i} char={char} progress={progress} range={[start, end]} accentClass={accentClass} />
-        );
-      })}
-    </span>
-  );
-}
-
-function IntroCharacter({
-  char,
-  progress,
-  range,
-  accentClass = "text-cap-dark-green",
-}: {
-  char: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-  accentClass?: string;
-}) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-
-  return (
-    <span className="relative inline-block">
-      <span className="text-cap-grey/20">{char}</span>
-      <motion.span style={{ opacity }} className={`absolute left-0 top-0 ${accentClass}`}>
-        {char}
-      </motion.span>
-    </span>
   );
 }
 

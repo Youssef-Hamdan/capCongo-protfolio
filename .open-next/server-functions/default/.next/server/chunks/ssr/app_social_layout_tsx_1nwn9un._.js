@@ -1,0 +1,3 @@
+module.exports=[86865,a=>{"use strict";a.s(["default",0,function({children:a}){return a},"metadata",0,{title:"Impact social",description:"Engagement communautaire de CAP Congo : hôpital à Babama, distributions alimentaires et soutien aux populations locales en RDC.",alternates:{canonical:"/social"},openGraph:{title:"Impact social | CAP Congo",description:"Développement communautaire : santé, alimentation et soutien matériel aux populations locales.",url:"/social"}}])},31862,a=>{a.n(a.i(86865))}];
+
+//# sourceMappingURL=app_social_layout_tsx_1nwn9un._.js.map

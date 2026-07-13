@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-/** Same sticky + scroll progress + character fill as the home “À propos” intro. */
+/** Sticky scroll runway with word-rise text reveal (shared by home + subsidiary intros). */
 export function StickyIntroFillScroll({
   text,
   accentClass = "text-cap-dark-green",
@@ -32,7 +32,7 @@ export function StickyIntroFillScroll({
         className="sticky top-0 flex h-screen w-full items-center justify-center px-5 sm:px-8 md:px-16 lg:px-20 pointer-events-none"
       >
         <div className="w-full max-w-5xl">
-          <IntroFillText progress={scrollYProgress} text={text} accentClass={accentClass} />
+          <IntroRiseText progress={scrollYProgress} text={text} accentClass={accentClass} />
         </div>
       </motion.div>
     </div>
@@ -63,7 +63,7 @@ export function EvolutionSequence() {
         className="sticky top-0 flex h-screen w-full items-center justify-center pointer-events-none"
       >
         <div className="w-full max-w-5xl">
-          <IntroFillText
+          <IntroRiseText
             progress={scrollYProgress}
             text="CAP CONGO est structurée en quatre branches complémentaires, couvrant l'ensemble de la chaîne de valeur agricole au fil du temps. La première vue se fixe en entier, puis le défilement révèle chaque branche ; la dernière reste visible en entier avant la suite."
           />
@@ -73,7 +73,7 @@ export function EvolutionSequence() {
   );
 }
 
-function IntroFillText({
+function IntroRiseText({
   text,
   progress,
   accentClass = "text-cap-dark-green",
@@ -82,74 +82,64 @@ function IntroFillText({
   progress: MotionValue<number>;
   accentClass?: string;
 }) {
+  const reduceMotion = useReducedMotion();
   const words = text.split(" ");
+
   return (
-    <div className="flex flex-wrap justify-center text-center font-unbounded text-xl font-semibold leading-[1.4] tracking-wide sm:text-2xl md:text-3xl lg:text-4xl pointer-events-auto">
+    <p className="flex flex-wrap justify-center text-center font-unbounded text-xl font-semibold leading-[1.45] tracking-wide sm:text-2xl md:text-3xl lg:text-4xl pointer-events-auto">
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;
-        const mappedStart = 0.15 + start * 0.3;
-        const mappedEnd = 0.15 + end * 0.3;
+        // Reveal across the sticky hold window (mid-runway)
+        const mappedStart = 0.12 + start * 0.42;
+        const mappedEnd = 0.12 + end * 0.42;
         return (
-          <IntroWord
-            key={i}
+          <IntroRiseWord
+            key={`${word}-${i}`}
             progress={progress}
             range={[mappedStart, mappedEnd]}
             word={word}
             accentClass={accentClass}
+            reduceMotion={!!reduceMotion}
           />
         );
       })}
-    </div>
+    </p>
   );
 }
 
-function IntroWord({
+function IntroRiseWord({
   word,
   progress,
   range,
-  accentClass = "text-cap-dark-green",
+  accentClass,
+  reduceMotion,
 }: {
   word: string;
   progress: MotionValue<number>;
   range: [number, number];
-  accentClass?: string;
+  accentClass: string;
+  reduceMotion: boolean;
 }) {
-  const characters = word.split("");
-  const amount = range[1] - range[0];
-  const step = amount / Math.max(characters.length, 1);
+  const opacity = useTransform(progress, range, reduceMotion ? [1, 1] : [0, 1]);
+  const y = useTransform(progress, range, reduceMotion ? [0, 0] : [22, 0]);
+  const blur = useTransform(progress, range, reduceMotion ? [0, 0] : [8, 0]);
+  const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
-    <span className="relative mr-[0.3em] inline-block mt-2">
-      {characters.map((char, i) => {
-        const start = range[0] + step * i;
-        const end = range[0] + step * (i + 1);
-        return (
-          <IntroCharacter key={i} char={char} progress={progress} range={[start, end]} accentClass={accentClass} />
-        );
-      })}
-    </span>
-  );
-}
-
-function IntroCharacter({
-  char,
-  progress,
-  range,
-  accentClass = "text-cap-dark-green",
-}: {
-  char: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-  accentClass?: string;
-}) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-
-  return (
-    <span className="relative inline-block">
-      <span className="text-cap-grey/30">{char}</span>
-      <motion.span style={{ opacity }} className={`absolute left-0 top-0 ${accentClass}`}>
-        {char}
+    <span className="relative mr-[0.28em] mt-2 inline-block">
+      {/* Ghost word keeps layout stable while the live word rises in */}
+      <span className="invisible" aria-hidden>
+        {word}
+      </span>
+      <span className="absolute left-0 top-0 text-cap-grey/25 select-none" aria-hidden>
+        {word}
+      </span>
+      <motion.span
+        style={{ opacity, y, filter }}
+        className={cn("absolute left-0 top-0 will-change-transform", accentClass)}
+      >
+        {word}
       </motion.span>
     </span>
   );

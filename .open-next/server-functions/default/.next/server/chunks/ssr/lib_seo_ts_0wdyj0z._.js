@@ -1,0 +1,3 @@
+module.exports=[94474,a=>{"use strict";let b="https://www.cap-congo.com".replace(/\/$/,"")||"https://www.cap-congo.com";a.s(["SITE_DESCRIPTION",0,"Produire local, nourrir durablement. CAP Congo SARL développe l'agriculture, la pisciculture et l'agro-industrie en République Démocratique du Congo.","SITE_NAME",0,"CAP Congo","SITE_OG_IMAGE",0,"/images/logos/Logo%20Cap%20Congo%20Horizontale.png","SITE_URL",0,b,"absoluteUrl",0,function(a="/"){return a.startsWith("http")?a:`${b}${a.startsWith("/")?a:`/${a}`}`}])}];
+
+//# sourceMappingURL=lib_seo_ts_0wdyj0z._.js.map

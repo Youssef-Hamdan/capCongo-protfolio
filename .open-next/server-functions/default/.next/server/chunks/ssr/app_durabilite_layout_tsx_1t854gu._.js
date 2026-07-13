@@ -1,0 +1,3 @@
+module.exports=[29184,a=>{"use strict";a.s(["default",0,function({children:a}){return a},"metadata",0,{title:"Durabilité",description:"Protection de la nature et agriculture responsable. CAP Congo régénère la couverture végétale et utilise ses espaces agricoles de manière durable.",alternates:{canonical:"/durabilite"},openGraph:{title:"Durabilité | CAP Congo",description:"Approche durable : agriculture responsable et régénération de la couverture végétale en RDC.",url:"/durabilite"}}])},67970,a=>{a.n(a.i(29184))}];
+
+//# sourceMappingURL=app_durabilite_layout_tsx_1t854gu._.js.map
