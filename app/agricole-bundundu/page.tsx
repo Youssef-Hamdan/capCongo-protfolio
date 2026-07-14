@@ -2,21 +2,21 @@ import type { Metadata } from "next";
 import CompanyPage from "../components/company-page";
 
 export const metadata: Metadata = {
-  title: "Agricole Bundundu",
+  title: "Agricole Bandundu",
   description:
-    "Développement agricole et cultures vivrières en RDC. Agricole Bundundu valorise la production locale et renforce la sécurité alimentaire.",
+    "Développement agricole et cultures vivrières en RDC. Agricole Bandundu valorise la production locale et renforce la sécurité alimentaire.",
   alternates: {
     canonical: "/agricole-bundundu",
   },
   openGraph: {
-    title: "Agricole Bundundu | CAP Congo",
+    title: "Agricole Bandundu | CAP Congo",
     description:
       "Projets agricoles durables, cultures vivrières et sécurité alimentaire en République Démocratique du Congo.",
     url: "/agricole-bundundu",
     images: [
       {
         url: "/images/bundundu/DJI_20251125123306_0693_D.webp",
-        alt: "Agricole Bundundu",
+        alt: "Agricole Bandundu",
       },
     ],
   },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export default function AgricoleBundunduPage() {
   return (
     <CompanyPage
-      title="AGRICOLE BUNDUNDU"
+      title="AGRICOLE BANDUNDU"
       intro="Acteur engagé dans le développement agricole en République Démocratique du Congo, nous œuvrons à la valorisation des cultures vivrières et au renforcement de la sécurité alimentaire."
       paragraphs={[
         "Nous développons et exploitons des projets agricoles durables, en mettant l’accent sur l’optimisation des rendements, la modernisation des pratiques culturales et la préservation des ressources naturelles.",

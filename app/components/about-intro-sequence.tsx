@@ -1,8 +1,52 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, MotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, type RefObject } from "react";
+import {
+  motion,
+  MotionValue,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "framer-motion";
+import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
+
+/** Matches Framer `useScroll` offset `["start end", "end start"]`. */
+function measureScrollProgress(el: HTMLElement): number {
+  const rect = el.getBoundingClientRect();
+  const vh = window.innerHeight || 1;
+  const total = el.offsetHeight + vh;
+  if (total <= 0) return 0;
+  return Math.min(1, Math.max(0, (vh - rect.top) / total));
+}
+
+function useLenisScrollProgress(targetRef: RefObject<HTMLElement | null>) {
+  const progress = useMotionValue(0);
+
+  const sync = () => {
+    const el = targetRef.current;
+    if (!el) return;
+    progress.set(measureScrollProgress(el));
+  };
+
+  useLenis(sync, [progress]);
+
+  useEffect(() => {
+    sync();
+    const el = targetRef.current;
+    window.addEventListener("resize", sync, { passive: true });
+    window.visualViewport?.addEventListener("resize", sync, { passive: true });
+    const ro = el ? new ResizeObserver(sync) : null;
+    if (el && ro) ro.observe(el);
+    return () => {
+      window.removeEventListener("resize", sync);
+      window.visualViewport?.removeEventListener("resize", sync);
+      ro?.disconnect();
+    };
+  }, [progress, targetRef]);
+
+  return progress;
+}
 
 /** Sticky scroll runway with word-rise text reveal (shared by home + subsidiary intros). */
 export function StickyIntroFillScroll({
@@ -16,11 +60,7 @@ export function StickyIntroFillScroll({
   className?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  const scrollYProgress = useLenisScrollProgress(containerRef);
 
   const opacity = useTransform(scrollYProgress, [0.65, 0.75], [1, 0]);
   const scale = useTransform(scrollYProgress, [0.65, 0.75], [1, 0.95]);
@@ -29,7 +69,7 @@ export function StickyIntroFillScroll({
     <div ref={containerRef} className={cn("relative h-[300vh] w-full z-20", className)}>
       <motion.div
         style={{ opacity, scale }}
-        className="sticky top-0 flex h-screen w-full items-center justify-center px-5 sm:px-8 md:px-16 lg:px-20 pointer-events-none"
+        className="sticky top-0 flex h-[100svh] w-full items-center justify-center px-5 sm:px-8 md:px-16 lg:px-20 pointer-events-none"
       >
         <div className="w-full max-w-5xl">
           <IntroRiseText progress={scrollYProgress} text={text} accentClass={accentClass} />
@@ -47,11 +87,7 @@ export function IntroSequence() {
 
 export function EvolutionSequence() {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 70%", "end start"],
-  });
+  const scrollYProgress = useLenisScrollProgress(containerRef);
 
   const opacity = useTransform(scrollYProgress, [0.7, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0.65, 0.75], [1, 0.95]);
@@ -60,7 +96,7 @@ export function EvolutionSequence() {
     <div ref={containerRef} className="relative h-[80vh] w-full z-20">
       <motion.div
         style={{ opacity, scale }}
-        className="sticky top-0 flex h-screen w-full items-center justify-center pointer-events-none"
+        className="sticky top-0 flex h-[100svh] w-full items-center justify-center pointer-events-none"
       >
         <div className="w-full max-w-5xl">
           <IntroRiseText
@@ -123,8 +159,6 @@ function IntroRiseWord({
 }) {
   const opacity = useTransform(progress, range, reduceMotion ? [1, 1] : [0, 1]);
   const y = useTransform(progress, range, reduceMotion ? [0, 0] : [22, 0]);
-  const blur = useTransform(progress, range, reduceMotion ? [0, 0] : [8, 0]);
-  const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
     <span className="relative mr-[0.28em] mt-2 inline-block">
@@ -132,11 +166,11 @@ function IntroRiseWord({
       <span className="invisible" aria-hidden>
         {word}
       </span>
-      <span className="absolute left-0 top-0 text-cap-grey/25 select-none" aria-hidden>
+      <span className="absolute left-0 top-0 text-cap-grey/35 select-none" aria-hidden>
         {word}
       </span>
       <motion.span
-        style={{ opacity, y, filter }}
+        style={{ opacity, y }}
         className={cn("absolute left-0 top-0 will-change-transform", accentClass)}
       >
         {word}

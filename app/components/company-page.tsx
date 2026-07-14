@@ -2,10 +2,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { type LucideIcon, Fish, Leaf, Sprout, Wheat, ChevronLeft, ChevronRight } from "lucide-react";
 import { HeroFooter } from "./hero-footer";
-import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
+import { StickyIntroFillScroll } from "./about-intro-sequence";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -214,86 +214,7 @@ function HeroSection({
 }
 
 // =========================================================================
-// 2. TEXT INTRO SEQUENCE (Sticky + Fill)
-// =========================================================================
-
-function TextIntroSequence({ 
-  intro, 
-  accentTextClass 
-}: { 
-  intro: string; 
-  accentTextClass: string; 
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"], 
-  });
-
-  return (
-    <div ref={containerRef} className="relative h-[150vh] w-full z-20 bg-background">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center px-6 pointer-events-none">
-        <div className="w-full max-w-4xl pointer-events-auto z-10">
-          <IntroFillText 
-            text={intro} 
-            progress={scrollYProgress} 
-            accentClass={accentTextClass} 
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IntroFillText({ text, progress, accentClass }: { text: string; progress: MotionValue<number>; accentClass: string }) {
-  const words = text.split(" ");
-  return (
-    <div className="flex flex-wrap justify-center text-center font-unbounded text-xl font-semibold leading-[1.4] tracking-wide sm:text-2xl md:text-3xl lg:text-4xl pointer-events-auto">
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + 1 / words.length;
-        const mappedStart = 0.2 + (start * 0.40); 
-        const mappedEnd = 0.2 + (end * 0.40);
-        return <IntroWord key={i} progress={progress} range={[mappedStart, mappedEnd]} word={word} accentClass={accentClass} />;
-      })}
-    </div>
-  );
-}
-
-function IntroWord({ word, progress, range, accentClass }: { word: string; progress: MotionValue<number>; range: [number, number]; accentClass: string }) {
-  const characters = word.split("");
-  const amount = range[1] - range[0];
-  const step = amount / word.length;
-
-  return (
-    <span className="relative mr-[0.3em] inline-block mt-2">
-      {characters.map((char, i) => {
-        const start = range[0] + (step * i);
-        const end = range[0] + (step * (i + 1));
-        return (
-          <IntroCharacter key={i} char={char} progress={progress} range={[start, end]} accentClass={accentClass} />
-        );
-      })}
-    </span>
-  );
-}
-
-function IntroCharacter({ char, progress, range, accentClass }: { char: string; progress: MotionValue<number>; range: [number, number]; accentClass: string }) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-
-  return (
-    <span className="relative inline-block">
-      <span className="text-cap-grey/30">{char}</span>
-      <motion.span style={{ opacity }} className={`absolute left-0 top-0 ${accentClass}`}>
-        {char}
-      </motion.span>
-    </span>
-  );
-}
-
-// =========================================================================
-// 3. EDITORIAL 50/50 SPLIT SHOWCASE (Dynamic Colors + Advanced Animation)
+// 2. EDITORIAL 50/50 SPLIT SHOWCASE (Dynamic Colors + Advanced Animation)
 // =========================================================================
 
 const SLIDE_PRESETS = [
@@ -645,10 +566,11 @@ export default function CompanyPage({
             accentTextClass={accentTextClass} 
           />
 
-          {/* 2. Text intro (Scroll to Fill) */}
-          <TextIntroSequence 
-            intro={intro} 
-            accentTextClass={accentTextClass} 
+          {/* 2. Text intro (word-rise scroll reveal — shared with home) */}
+          <StickyIntroFillScroll
+            text={intro}
+            accentClass={accentTextClass}
+            className="bg-background"
           />
 
           {/* 3. Editorial 50/50 Split Showcase (Dynamic Backgrounds + Time mapping) */}

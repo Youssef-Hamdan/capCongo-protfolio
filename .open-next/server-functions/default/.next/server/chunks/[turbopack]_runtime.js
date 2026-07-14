@@ -912,7 +912,7 @@ module.exports = (sourcePath)=>({
     switch(chunkPath) {
       case "server/chunks/ssr/[root-of-the-server]__04at3p9._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__04at3p9._.js");
       case "server/chunks/ssr/[root-of-the-server]__0g84hko._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0g84hko._.js");
-      case "server/chunks/ssr/[root-of-the-server]__0sfi-4r._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0sfi-4r._.js");
+      case "server/chunks/ssr/[root-of-the-server]__0qao508._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0qao508._.js");
       case "server/chunks/ssr/[root-of-the-server]__1knivdb._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1knivdb._.js");
       case "server/chunks/ssr/[root-of-the-server]__1yvl59_._.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1yvl59_._.js");
       case "server/chunks/ssr/[turbopack]_runtime.js": return require("/Users/youssefhamdan/Documents/nextjs/www/cap-congo/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js");

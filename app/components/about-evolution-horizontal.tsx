@@ -39,7 +39,7 @@ function getFallbackIcon(name: string) {
   const lowerName = name.toLowerCase();
   if (lowerName.includes("pisci")) return Fish;
   if (lowerName.includes("palm")) return Leaf;
-  if (lowerName.includes("bundundu")) return Wheat;
+  if (lowerName.includes("bandundu")) return Wheat;
   return Sprout;
 }
 

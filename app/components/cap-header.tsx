@@ -23,7 +23,7 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
     tagline: "Palme & chaîne de valeur",
   },
   {
-    label: "AGRICOLE BUNDUNDU",
+    label: "AGRICOLE BANDUNDU",
     href: "/agricole-bundundu",
     tagline: "Grandes cultures & démonstration",
   },
@@ -129,16 +129,6 @@ export default function CapHeader() {
   }, [lenis]);
 
   const scrollT = Math.min(1, Math.max(0, scrollY / SCROLL_BG_OPACITY_RANGE));
-
-  const handleHashNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith("#")) return;
-    setMobileMenuOpen(false);
-    if (pathname !== "/") return;
-    e.preventDefault();
-    const id = href.slice(1);
-    scrollToHashId(id);
-    window.history.replaceState(null, "", href);
-  };
 
   useLayoutEffect(() => {
     const id = requestAnimationFrame(() => {
@@ -438,13 +428,16 @@ export default function CapHeader() {
           </button>
 
           {/* Desktop Contact Link */}
-          <a
-            href={pathname === "/" ? "/contact" : "/contact"}
-            onClick={(e) => handleHashNavClick(e, "/contact")}
+          <Link
+            href="/contact"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setCompaniesMenuPinned(false);
+            }}
             className="pointer-events-auto hidden shrink-0 rounded-lg px-1.5 py-1.5 font-sans text-[11px] font-normal text-cap-grey transition-colors hover:text-cap-dark sm:px-2 lg:text-sm md:inline-flex md:items-center"
           >
             Contactez-nous
-          </a>
+          </Link>
           
         </div>
       </div>
@@ -581,13 +574,13 @@ export default function CapHeader() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <a
-                href={pathname === "/" ? "#contact" : "/#contact"}
+              <Link
+                href="/contact"
                 className={mobileContactLinkClass}
-                onClick={(e) => handleHashNavClick(e, "#contact")}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Contactez-nous
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         )}

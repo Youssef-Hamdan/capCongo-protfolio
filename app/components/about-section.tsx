@@ -15,7 +15,7 @@ const ORGANIZATION_BRANCHES = [
   { name: "PISCICULTURE", year: "2018", description: "Production de poissons d'eau douce" },
   { name: "AGRO-PASTORAL", year: "2019", description: "Production agricole et élevage" },
   { name: "AGRO PALM", year: "2023", description: "Production et transformation de palmiers à huile" },
-  { name: "AGRICOLE BUNDUNDU", year: "2024", description: "Développement agricole et cultures vivrières" },
+  { name: "AGRICOLE BANDUNDU", year: "2024", description: "Développement agricole et cultures vivrières" },
 ];
 
 const ACTIVITIES: { icon: LucideIcon; title: string; text: string; bgImage: string; href: string }[] = [
