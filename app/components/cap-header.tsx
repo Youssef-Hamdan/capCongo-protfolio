@@ -40,6 +40,7 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
 ];
 
 const PAGE_NAV_ITEMS: { label: string; href: string }[] = [
+  { label: "PRODUCTS", href: "/products" },
   { label: "DURABILITÉ", href: "/durabilite" },
   { label: "SOCIAL", href: "/social" },
 ];
