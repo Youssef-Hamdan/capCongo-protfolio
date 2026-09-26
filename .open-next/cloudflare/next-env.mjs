@@ -1,3 +1,3 @@
-export const production = {"RESEND_API_KEY":"re_X3ztsYMY_7io51gMKVsEZbXqNzQLYoBoF"};
-export const development = {"RESEND_API_KEY":"re_X3ztsYMY_7io51gMKVsEZbXqNzQLYoBoF"};
-export const test = {"RESEND_API_KEY":"re_X3ztsYMY_7io51gMKVsEZbXqNzQLYoBoF"};
+export const production = {"RESEND_API_KEY":"re_WH44Lbpj_DCWMz5M21FTEMGpCCBSbNe62","RESEND_FROM_EMAIL":"CAP Congo <onboarding@resend.dev>","RESEND_TO_EMAIL":"info@cap-congo.com","NEXT_PUBLIC_SITE_URL":"https://www.cap-congo.com","NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION":""};
+export const development = {"RESEND_API_KEY":"re_WH44Lbpj_DCWMz5M21FTEMGpCCBSbNe62","RESEND_FROM_EMAIL":"CAP Congo <onboarding@resend.dev>","RESEND_TO_EMAIL":"info@cap-congo.com","NEXT_PUBLIC_SITE_URL":"https://www.cap-congo.com","NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION":""};
+export const test = {"RESEND_API_KEY":"re_WH44Lbpj_DCWMz5M21FTEMGpCCBSbNe62","RESEND_FROM_EMAIL":"CAP Congo <onboarding@resend.dev>","RESEND_TO_EMAIL":"info@cap-congo.com","NEXT_PUBLIC_SITE_URL":"https://www.cap-congo.com","NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION":""};

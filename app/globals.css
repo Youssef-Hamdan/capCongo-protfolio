@@ -47,6 +47,7 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-sans);
+  --font-sora: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   --font-unbounded: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
 
   --color-cap-green: #70aa43;
@@ -102,10 +103,14 @@
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
   overflow-x: clip;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
 }
 

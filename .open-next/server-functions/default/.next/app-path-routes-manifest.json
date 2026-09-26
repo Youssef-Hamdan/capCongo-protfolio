@@ -10,5 +10,8 @@
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/",
   "/pisciculture/page": "/pisciculture",
+  "/products/page": "/products",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
   "/social/page": "/social"
 }

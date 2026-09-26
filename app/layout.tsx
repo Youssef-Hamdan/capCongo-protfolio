@@ -9,6 +9,7 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_OG_IMAGE,
+  SITE_TAGLINE,
   SITE_URL,
 } from "@/lib/seo";
 
@@ -17,7 +18,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const sora = Sora({
   subsets: ["latin"],
   variable: "--font-sora",
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const unbounded = Unbounded({
@@ -29,7 +30,7 @@ const unbounded = Unbounded({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Produire local, nourrir durablement`,
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -61,20 +62,18 @@ export const metadata: Metadata = {
     locale: "fr_CD",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Produire local, nourrir durablement`,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     images: [
       {
         url: SITE_OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: "CAP Congo",
+        alt: "CAP Congo — logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Produire local, nourrir durablement`,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     images: [SITE_OG_IMAGE],
   },
@@ -97,8 +96,10 @@ export const metadata: Metadata = {
       }
     : {}),
   category: "agriculture",
+  other: {
+    google: "notranslate",
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -107,6 +108,8 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
+      translate="no"
+      suppressHydrationWarning
       className={cn(
         "antialiased",
         sora.variable,
@@ -115,7 +118,12 @@ export default function RootLayout({
         geist.variable,
       )}
     >
-      <body className="min-h-dvh flex min-w-0 flex-col overflow-x-clip font-sans text-foreground bg-background">
+      <head>
+        <link rel="preconnect" href="https://player.vimeo.com" />
+        <link rel="preconnect" href="https://i.vimeocdn.com" />
+        <link rel="dns-prefetch" href="https://vod-adaptive-ak.vimeocdn.com" />
+      </head>
+      <body className="min-h-dvh flex min-w-0 flex-col font-sans text-foreground bg-background">
         <JsonLd />
         <LenisRoot>
           <div

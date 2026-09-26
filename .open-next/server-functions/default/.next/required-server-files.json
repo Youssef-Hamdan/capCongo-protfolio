@@ -117,6 +117,9 @@
       }
     },
     "outputFileTracingRoot": "/Users/youssefhamdan/Documents/nextjs/www/cap-congo",
+    "allowedDevOrigins": [
+      "192.168.3.135"
+    ],
     "cacheComponents": false,
     "cacheLife": {
       "default": {

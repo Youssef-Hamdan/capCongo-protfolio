@@ -88,7 +88,7 @@ export default function ContactPage() {
           >
             <h2 className="mb-8 font-unbounded text-2xl font-semibold">Envoyez-nous un message</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} suppressHydrationWarning={true} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">Nom complet <span className="text-red-500">*</span></label>
@@ -97,6 +97,7 @@ export default function ContactPage() {
                     id="name" 
                     name="name" 
                     required 
+                    suppressHydrationWarning={true}
                     className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-cap-blue focus:ring-1 focus:ring-cap-blue"
                     placeholder="Jean Dupont"
                   />
@@ -108,6 +109,7 @@ export default function ContactPage() {
                     id="email" 
                     name="email" 
                     required 
+                    suppressHydrationWarning={true}
                     className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-cap-blue focus:ring-1 focus:ring-cap-blue"
                     placeholder="jean@exemple.com"
                   />
@@ -120,6 +122,7 @@ export default function ContactPage() {
                   type="text" 
                   id="subject" 
                   name="subject"
+                  suppressHydrationWarning={true}
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-cap-blue focus:ring-1 focus:ring-cap-blue"
                   placeholder="Comment pouvons-nous vous aider ?"
                 />
@@ -132,6 +135,7 @@ export default function ContactPage() {
                   name="message" 
                   required 
                   rows={5}
+                  suppressHydrationWarning={true}
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-cap-blue focus:ring-1 focus:ring-cap-blue resize-none"
                   placeholder="Écrivez votre message ici..."
                 />
@@ -140,6 +144,7 @@ export default function ContactPage() {
               <button 
                 type="submit" 
                 disabled={isSubmitting}
+                suppressHydrationWarning={true}
                 className={cn(
                   "flex w-full items-center justify-center gap-2 rounded-md bg-cap-ink px-6 py-4 font-semibold text-white transition hover:bg-cap-ink/90",
                   isSubmitting && "opacity-70 cursor-not-allowed"
@@ -193,7 +198,8 @@ export default function ContactPage() {
                 <h3 className="font-unbounded text-xl font-semibold mb-2">Notre Siège</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Kinshasa, République Démocratique du Congo<br />
-                  [Insérez l'adresse de la rue ici]
+                  Immeuble Future Tower 4ème Niveau
+                    3642, Boulevard du 30 Juin Kinshasa Gombe/RD Congo
                 </p>
               </div>
             </div>

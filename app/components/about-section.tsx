@@ -23,19 +23,19 @@ const ACTIVITIES: { icon: LucideIcon; title: string; text: string; bgImage: stri
     icon: Sprout,
     title: "Palmiers à huile",
     text: "Exploitation et transformation de plantations.",
-    bgImage: "/images/agro-palm/hero.jpeg",
+    bgImage: "/images/act2.webp",
     href: "/agro-palm",
   },
   {
     icon: Wheat,
     title: "Cultures Vivrières",
     text: "Transformation du maïs et du manioc en farines.",
-    bgImage: "/images/bundundu/BANANADEMOFIELD.webp",
+    bgImage: "/images/act1.webp",
     href: "/agricole-bundundu",
   },
   {
     icon: Leaf,
-    title: "Maraîchère & Café",
+    title: "Culture Maraîchère et Café",
     text: "Production maraîchère, café et arachide.",
     bgImage: "/images/mais.webp",
     href: "/agro-pastoral",
@@ -61,11 +61,11 @@ export default function AboutSection() {
       <IntroSequence />
 
       {/* Subtle light-surface accents */}
-      <div
+      {/* <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_15%_20%,rgba(112,170,67,0.12),transparent)]"
         aria-hidden
-      />
-      <div className="pointer-events-none absolute -right-32 top-0 h-[800px] w-[800px] rounded-full bg-cap-green/10 blur-[120px]" aria-hidden />
+      /> */}
+      {/* <div className="pointer-events-none absolute -right-32 top-0 h-[800px] w-[800px] rounded-full bg-cap-green/10 blur-[120px]" aria-hidden /> */}
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-5 sm:px-8 md:px-16 lg:px-20">
         
@@ -73,9 +73,12 @@ export default function AboutSection() {
         <div className="relative flex flex-col items-start gap-16 lg:flex-row lg:gap-24">
           
           {/* Left Column: Sticky Title & Watermark */}
-          <div className="relative z-10 shrink-0 lg:sticky lg:top-32 lg:w-[40%] lg:self-start">
+          <div className="relative z-10 w-full min-w-0 shrink-0 overflow-x-clip lg:sticky lg:top-32 lg:w-[40%] lg:overflow-visible lg:self-start">
             {/* Massive Typographic Watermark */}
-            <div className="absolute -left-6 -top-16 -z-10 select-none font-unbounded text-[10rem] font-black leading-none text-cap-dark/[0.06] md:text-[14rem]">
+            <div
+              className="pointer-events-none absolute left-0 -top-8 -z-10 select-none whitespace-nowrap font-unbounded text-[clamp(3.5rem,22vw,5.5rem)] font-black leading-none tracking-tighter text-cap-dark/[0.06] sm:-left-2 sm:-top-12 sm:text-[6.5rem] md:-left-4 md:-top-14 md:text-[8rem] lg:-left-6 lg:-top-16 lg:text-[11rem]"
+              aria-hidden
+            >
               2018
             </div>
             
@@ -105,7 +108,7 @@ export default function AboutSection() {
                   ]}
                 />
               </div>
-            <div className="relative mt-12 w-full lg:mt-16">
+            <div className="relative mt-12 w-full overflow-x-clip lg:mt-16">
               
               {/* Main image with subtle tilt — same width as manifesto block above; fixed height preserved */}
               <div className="relative h-[325px] w-full overflow-hidden rounded-[2.5rem] shadow-2xl shadow-cap-green/20 transition-transform duration-700 -rotate-3 hover:rotate-0 hover:scale-[1.02] sm:h-[400px]">
@@ -121,7 +124,7 @@ export default function AboutSection() {
               </div>
 
               {/* Overlapping secondary image (circular, breaking the grid) */}
-              <div className="absolute -bottom-6 -right-12 sm:-right-16 h-32 w-32 sm:h-40 sm:w-40 rounded-full border-8 border-background overflow-hidden shadow-xl z-10 transition-transform duration-700 hover:scale-110">
+              <div className="absolute -bottom-10 right-0  h-32 w-32 sm:h-40 sm:w-40 rounded-full border-8 border-background overflow-hidden shadow-xl z-10 transition-transform duration-700 hover:scale-110">
                 <Image
                   src="/images/mais.webp"
                   alt="Détail agriculture"
@@ -132,7 +135,7 @@ export default function AboutSection() {
               </div>
 
               {/* Floating accent badge */}
-              <div className="absolute top-10 -left-10 z-10 flex items-center gap-2 rounded-full bg-background/95 px-4 py-2 shadow-xl ring-1 ring-cap-dark/5 backdrop-blur-md">
+              <div className="absolute top-10 z-10 flex items-center gap-2 rounded-full bg-background/95 px-4 py-2 shadow-xl ring-1 ring-cap-dark/5 backdrop-blur-md">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cap-green opacity-75"></span>
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cap-green"></span>

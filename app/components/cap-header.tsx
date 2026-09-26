@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { scrollToHashId } from "@/lib/hash-scroll";
 
 const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
@@ -23,7 +23,7 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
     tagline: "Palme & chaîne de valeur",
   },
   {
-    label: "AGRICOLE BUNDUNDU",
+    label: "AGRICOLE BANDUNDU",
     href: "/agricole-bundundu",
     tagline: "Grandes cultures & démonstration",
   },
@@ -40,15 +40,16 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
 ];
 
 const PAGE_NAV_ITEMS: { label: string; href: string }[] = [
+  { label: "PRODUCTS", href: "/products" },
   { label: "DURABILITÉ", href: "/durabilite" },
   { label: "SOCIAL", href: "/social" },
 ];
 
-const mobileLinkClass =
-  "text-cap-green text-3xl sm:text-4xl font-bold font-unbounded tracking-tight hover:text-cap-dark-green transition-colors";
+const mobileNavPillClass =
+  "inline-flex items-center justify-center gap-2 rounded-full border border-cap-green/25 bg-cap-green/10 px-5 py-2.5 text-center text-2xl sm:text-3xl font-bold font-unbounded tracking-tight text-cap-green outline-none transition-colors active:bg-cap-green/20 hover:bg-cap-green/15 focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-4 focus-visible:ring-offset-background";
 
-const mobileContactLinkClass =
-  "text-cap-grey text-3xl sm:text-4xl font-bold font-unbounded tracking-tight hover:text-cap-dark transition-colors";
+const mobileNavPillMutedClass =
+  "inline-flex items-center justify-center gap-2 rounded-full border border-cap-dark/15 bg-cap-dark/[0.05] px-5 py-2.5 text-center text-2xl sm:text-3xl font-bold font-unbounded tracking-tight text-cap-dark outline-none transition-colors active:bg-cap-dark/10 hover:bg-cap-dark/[0.08] focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-4 focus-visible:ring-offset-background";
 
 const SCROLL_BG_OPACITY_RANGE = 110;
 
@@ -102,6 +103,13 @@ export default function CapHeader() {
 
   const companiesDropdownVisible = companiesMenuPinned || companiesMenuHover;
   const lenis = useContext(LenisContext)?.lenis;
+
+  // 1. Force header to reveal when mobile menu opens so the button isn't hidden off-screen
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setHeaderRevealed(true);
+    }
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (!lenis) return;
@@ -217,7 +225,8 @@ export default function CapHeader() {
     >
       <div
         style={{ ...headerSurfaceStyle(scrollT), ...headerTransformStyle }}
-        className="pointer-events-auto flex w-full mt-4 max-w-[min(100%,90rem)] flex-nowrap items-center rounded-[1.25rem] border sm:rounded-[1.5rem] md:rounded-[2rem] px-2.5 sm:px-4 md:px-5 lg:px-6 will-change-transform"
+        // 2. Added `relative z-50` here so the glass header stays entirely above the z-40 mobile overlay
+        className="relative z-50 pointer-events-auto flex w-full mt-4 max-w-[min(100%,90rem)] flex-nowrap items-center rounded-[1.25rem] border sm:rounded-[1.5rem] md:rounded-[2rem] px-2.5 sm:px-4 md:px-5 lg:px-6 will-change-transform"
       >
         {/* Left: Logo Only */}
         <div className="relative z-[60] flex min-w-0 flex-1 items-center justify-start">
@@ -279,7 +288,7 @@ export default function CapHeader() {
                   }
                 }}
               >
-                HOME
+                ACCUEIL
               </Link>
             </div>
 
@@ -316,7 +325,7 @@ export default function CapHeader() {
                   className={`${DESKTOP_NAV_LINK_CLASS} relative z-10 inline-flex items-center gap-0.5 outline-none focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
                   onClick={() => setCompaniesMenuPinned((p) => !p)}
                 >
-                  COMPANIES
+                  ENTREPRISES
                   <ChevronDown
                     strokeWidth={2}
                     className={`size-3.5 shrink-0 transition-transform duration-200 ${companiesDropdownVisible ? "rotate-180" : ""}`}
@@ -421,22 +430,36 @@ export default function CapHeader() {
             type="button"
             aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileMenuOpen}
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-cap-dark/[0.06] text-cap-dark outline-none transition-colors hover:bg-cap-dark/10 focus-visible:ring-2 focus-visible:ring-cap-yellow md:hidden"
+            className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-cap-dark/[0.06] text-cap-dark outline-none transition-colors hover:bg-cap-dark/10 focus-visible:ring-2 focus-visible:ring-cap-yellow md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileMenuOpen ? (
-                <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
                   <X className="size-5" strokeWidth={2} aria-hidden />
                 </motion.div>
               ) : (
-                <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
                   <Menu className="size-5" strokeWidth={2} aria-hidden />
                 </motion.div>
               )}
             </AnimatePresence>
           </button>
-
+          
           {/* Desktop Contact Link */}
           <a
             href={pathname === "/" ? "/contact" : "/contact"}
@@ -445,7 +468,6 @@ export default function CapHeader() {
           >
             Contactez-nous
           </a>
-          
         </div>
       </div>
 
@@ -466,7 +488,7 @@ export default function CapHeader() {
             >
               <Link
                 href="/"
-                className={mobileLinkClass}
+                className={mobileNavPillClass}
                 onClick={(e) => {
                   setMobileMenuOpen(false);
                   if (pathname === "/") {
@@ -489,13 +511,13 @@ export default function CapHeader() {
               <button
                 type="button"
                 aria-expanded={mobileCompaniesOpen}
-                className="flex items-center gap-2 text-cap-green text-3xl sm:text-4xl font-bold font-unbounded tracking-tight outline-none transition-colors hover:text-cap-dark-green focus-visible:text-cap-dark-green focus-visible:ring-2 focus-visible:ring-cap-yellow focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
+                className={mobileNavPillClass}
                 onClick={() => setMobileCompaniesOpen((o) => !o)}
               >
-                COMPANIES
+                ENTREPRISES
                 <ChevronDown
                   strokeWidth={2.5}
-                  className={`size-8 shrink-0 transition-transform duration-300 ${mobileCompaniesOpen ? "rotate-180" : ""}`}
+                  className={`size-6 sm:size-7 shrink-0 transition-transform duration-300 ${mobileCompaniesOpen ? "rotate-180" : ""}`}
                   aria-hidden
                 />
               </button>
@@ -507,15 +529,14 @@ export default function CapHeader() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex w-full max-w-xs flex-col items-stretch overflow-hidden"
+                    className="flex w-[min(100%,20rem)] flex-col items-stretch overflow-hidden px-1"
                   >
-                    <ul className="relative mx-auto w-full border-t border-cap-dark/10 pt-1 before:absolute before:left-[0.6875rem] before:top-2 before:bottom-2 before:z-0 before:w-px before:bg-cap-dark/10 sm:before:left-[0.9375rem]">
+                    <ul className="mt-1 flex w-full flex-col gap-2">
                       {COMPANY_ITEMS.map((co, i) => (
                         <motion.li
                           key={co.href}
-                          className="border-b border-cap-dark/[0.06] last:border-b-0"
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{
                             delay: 0.04 + i * 0.05,
                             duration: 0.35,
@@ -524,24 +545,25 @@ export default function CapHeader() {
                         >
                           <Link
                             href={co.href}
-                            className="group relative flex gap-3 py-3 pl-8 pr-2 text-left transition-colors sm:pl-10 sm:pr-3"
+                            className="group flex items-center gap-3 rounded-2xl border border-cap-dark/10 bg-white px-4 py-3.5 shadow-[0_8px_24px_-16px_rgba(29,29,27,0.35)] transition-[transform,background-color,border-color,box-shadow] active:scale-[0.98] active:bg-cap-green/[0.08] hover:border-cap-green/30 hover:bg-cap-green/[0.06]"
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            <span
-                              className="absolute left-[0.6875rem] top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cap-dark/20 ring-2 ring-background transition-colors group-active:bg-cap-green sm:left-[0.9375rem]"
-                              aria-hidden
-                            />
-                            <span className="w-5 shrink-0 text-right font-mono text-xs font-medium tabular-nums text-cap-grey">
+                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-cap-green/12 font-mono text-xs font-bold tabular-nums text-cap-green ring-1 ring-cap-green/20">
                               {String(i + 1).padStart(2, "0")}
                             </span>
-                            <span className="min-w-0">
-                              <span className="block font-unbounded text-lg font-bold tracking-tight text-cap-dark transition-colors group-hover:text-cap-green sm:text-xl">
+                            <span className="min-w-0 flex-1 text-left">
+                              <span className="block font-unbounded text-base font-bold tracking-tight text-cap-dark transition-colors group-hover:text-cap-green sm:text-lg">
                                 {co.label}
                               </span>
                               <span className="mt-0.5 block font-sans text-xs leading-snug text-cap-grey sm:text-sm">
                                 {co.tagline}
                               </span>
                             </span>
+                            <ChevronRight
+                              className="size-5 shrink-0 text-cap-green/70 transition-transform group-hover:translate-x-0.5 group-active:translate-x-1"
+                              strokeWidth={2.5}
+                              aria-hidden
+                            />
                           </Link>
                         </motion.li>
                       ))}
@@ -564,7 +586,7 @@ export default function CapHeader() {
               >
                 <Link
                   href={item.href}
-                  className={mobileLinkClass}
+                  className={mobileNavPillClass}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -582,9 +604,9 @@ export default function CapHeader() {
               }}
             >
               <a
-                href={pathname === "/" ? "#contact" : "/#contact"}
-                className={mobileContactLinkClass}
-                onClick={(e) => handleHashNavClick(e, "#contact")}
+                href="/contact"
+                className={mobileNavPillMutedClass}
+                onClick={(e) => handleHashNavClick(e, "/contact")}
               >
                 Contactez-nous
               </a>

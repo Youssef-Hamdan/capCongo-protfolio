@@ -1,24 +1,30 @@
-import type { Metadata } from "next";
+import { PageBreadcrumbJsonLd } from "../components/page-breadcrumb-json-ld";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Durabilité",
   description:
     "Protection de la nature et agriculture responsable. CAP Congo régénère la couverture végétale et utilise ses espaces agricoles de manière durable.",
-  alternates: {
-    canonical: "/durabilite",
-  },
-  openGraph: {
-    title: "Durabilité | CAP Congo",
-    description:
-      "Approche durable : agriculture responsable et régénération de la couverture végétale en RDC.",
-    url: "/durabilite",
-  },
-};
+  path: "/durabilite",
+  ogImage: "/images/durabilite_1.webp",
+  ogImageAlt: "Agriculture durable — CAP Congo",
+  keywords: [
+    "durabilité agricole",
+    "agriculture responsable RDC",
+    "environnement Congo",
+    "couverture végétale",
+  ],
+});
 
 export default function DurabiliteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <PageBreadcrumbJsonLd path="/durabilite" pageName="Durabilité" />
+      {children}
+    </>
+  );
 }
