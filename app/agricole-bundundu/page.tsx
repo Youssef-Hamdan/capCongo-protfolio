@@ -26,7 +26,12 @@ export default function AgricoleBundunduPage() {
   return (
     <CompanyPage
       title="AGRICOLE BANDUNDU"
-      intro="Acteur engagé dans le développement agricole en République Démocratique du Congo, nous œuvrons à la valorisation des cultures vivrières et au renforcement de la sécurité alimentaire."
+      intro={[
+        "Acteur engagé dans le développement agricole",
+        "en République Démocratique du Congo,",
+        "nous œuvrons à la valorisation des cultures vivrières",
+        "et au renforcement de la sécurité alimentaire.",
+      ].join("\n")}
       paragraphs={[
         "Nous développons et exploitons des projets agricoles durables, en mettant l’accent sur l’optimisation des rendements, la modernisation des pratiques culturales et la préservation des ressources naturelles.",
         "À travers une approche intégrée, nous accompagnons l’ensemble de la chaîne de valeur : production, transformation et distribution, afin de garantir des produits de qualité, accessibles et adaptés aux besoins des marchés locaux.",

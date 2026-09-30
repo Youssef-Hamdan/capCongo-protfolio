@@ -12,7 +12,7 @@ import {
   Variants,
   AnimatePresence,
 } from 'framer-motion';
-import { StickyIntroFillScroll } from '../components/about-intro-sequence';
+import { BlurFadeUpSequence } from '../components/about-intro-sequence';
 import { HeroFooter } from '../components/hero-footer';
 // ==========================================
 // 1. ANIMATED STATS COMPONENT
@@ -119,8 +119,14 @@ function SocialImpactHero() {
 }
 export function SocialImpactScrollSequence() {
   return (
-    <StickyIntroFillScroll
-      text="Engagée pour le développement communautaire, Cap Congo Agro Palm améliore le quotidien des populations locales à travers la construction d’un hôpital à Babama, des distributions alimentaires à Mushie Pentane et un soutien matériel continu à Lubunga."
+    <BlurFadeUpSequence
+      text={[
+        "Engagée pour le développement communautaire,",
+        "Cap Congo Agro Palm améliore le quotidien des populations locales",
+        "à travers la construction d’un hôpital à Babama,",
+        "des distributions alimentaires à Mushie Pentane",
+        "et un soutien matériel continu à Lubunga.",
+      ].join("\n")}
       accentClass="text-cap-blue"
     />
   );

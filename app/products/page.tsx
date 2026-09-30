@@ -96,33 +96,15 @@ const products = [
   },
   {
     id: 11,
-    name: 'Huile végétale Palmina – Bidon 25 L',
+    name: "Palmina – L'huile végétale qui sublime toutes vos recettes",
     category: 'Huiles',
     description:
-      'Une huile végétale de qualité, adaptée aux besoins des familles, restaurants et professionnels de la restauration. Son format de 25 litres est idéal pour une utilisation régulière et en grande quantité.',
-    image: '/images/products/PalminaBidon25L.png',
-    tag: '25 L',
+      "Découvrez Palmina, l'huile végétale de qualité produite par CAP Congo Agro Palm, conçue pour les familles, restaurateurs et professionnels. Formats : bidon 3 L (ménages), 5 L (familles nombreuses) et 25 L (restaurants, hôtels et professionnels) — qualité, praticité et confiance.",
+    image: '/images/products/HuilevgtalePalminaBidon3L.webp',
+    tag: 'Cuisine',
   },
   {
     id: 12,
-    name: 'Huile végétale Palma – Bidon 25 L',
-    category: 'Huiles',
-    description:
-      'Une huile pratique et polyvalente pour vos différentes préparations culinaires. Le bidon de 25 litres offre un format économique adapté aux usages professionnels et collectifs.',
-    image: '/images/products/PalmaBidon25L.png',
-    tag: '25 L',
-  },
-  {
-    id: 13,
-    name: 'Huile végétale Palmina – Bidon 3 L',
-    category: 'Huiles',
-    description:
-      'Pratique au quotidien, l’huile végétale Palmina est idéale pour la cuisson, la friture et la préparation de vos plats préférés. Son format de 3 litres offre un excellent équilibre entre praticité et quantité, pour accompagner facilement toutes vos recettes.',
-    image: '/images/products/PalminaBidon3L.png',
-    tag: '3 L',
-  },
-  {
-    id: 14,
     name: "BioMar : L'aliment de qualité pour une pisciculture performante",
     category: 'Pisciculture',
     description:
@@ -131,7 +113,7 @@ const products = [
     tag: 'Aquaculture',
   },
   {
-    id: 15,
+    id: 13,
     name: "Poisson-chat (Ngolo) : Le goût du frais, la qualité du local",
     category: "Pisciculture",
     description: "Le goût du frais, la qualité du local ! Élevé avec soin par Cap Congo Pisciculture, notre poisson-chat, également appelé Ngolo, est une production locale destinée à offrir aux familles congolaises un poisson frais et de qualité. De l’élevage à la commercialisation, nous veillons à chaque étape pour proposer un produit frais, savoureux et adapté aux besoins du marché congolais.",
@@ -139,7 +121,7 @@ const products = [
     tag: "Production locale"
   },
   {
-    id: 16,
+    id: 14,
     name: 'Maïs Jaune Tiger – La qualité qui nourrit vos meilleures recettes',
     category: 'Céréales',
     description:

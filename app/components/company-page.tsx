@@ -2,11 +2,17 @@
 "use client";
 
 import Image from "next/image";
-import { type LucideIcon, Fish, Leaf, Sprout, Wheat, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { type LucideIcon, Fish, Leaf, Sprout, Wheat, ChevronLeft, ChevronRight, ArrowDown } from "lucide-react";
 import { HeroFooter } from "./hero-footer";
-import { StickyIntroFillScroll } from "./about-intro-sequence";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { BlurFadeUpSequence } from "./about-intro-sequence";
+import {
+  CompanyActivitiesSection,
+  type CompanyActivity,
+} from "./company-activities-section";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -33,6 +39,8 @@ interface CompanyPageProps {
   iconName?: keyof typeof iconMap;
   /** Vimeo video ID — full-viewport reveal after the split showcase when set. */
   vimeoVideoId?: string;
+  /** Optional process / activity timelines shown after the showcase. */
+  activities?: CompanyActivity[];
 }
 
 // =========================================================================
@@ -53,6 +61,7 @@ function HeroSection({
   accentTextClass: string; 
 }) {
   const containerRef = useRef<HTMLElement>(null);
+  const lenis = useLenis();
   const slides = heroImages?.length ? heroImages : [heroImage];
   const isCarousel = slides.length > 1;
 
@@ -61,8 +70,14 @@ function HeroSection({
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start", duration: 35 },
-    isCarousel ? [autoplayPlugin.current] : []
+    {
+      loop: true,
+      align: "start",
+      duration: 35,
+      dragFree: false,
+      watchDrag: true,
+    },
+    isCarousel ? [autoplayPlugin.current] : [],
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -83,13 +98,19 @@ function HeroSection({
     };
   }, [emblaApi, onSelect]);
 
+  // Embla can mis-measure when mounted in an absolute full-bleed hero — reInit after layout.
+  useEffect(() => {
+    if (!emblaApi) return;
+    const id = requestAnimationFrame(() => emblaApi.reInit());
+    return () => cancelAnimationFrame(id);
+  }, [emblaApi, slides.length]);
+
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
   
   const { scrollY } = useScroll();
   const heroFade = useTransform(scrollY, [0, 350, 750], [1, 0.75, 0]);
-  const heroY = useTransform(scrollY, [0, 750], ["0px", "-80px"]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -102,49 +123,65 @@ function HeroSection({
   // Premium easing matching your GSAP power3.out / power4.out feel
   const cinematicEase = [0.16, 1, 0.3, 1] as const;
 
+  const scrollToNextSection = () => {
+    const next = containerRef.current?.nextElementSibling as HTMLElement | null;
+    if (!next) return;
+    if (lenis) {
+      lenis.scrollTo(next, { offset: 0, duration: 1.1 });
+      return;
+    }
+    next.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section 
       ref={containerRef} 
       className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-background z-20"
     >
-      <motion.div 
-        style={{ opacity: heroFade, y: heroY }}
-        className="absolute inset-0 z-0 overflow-hidden"
-      >
-        <motion.div 
-          style={{ y: imgY, scale: imgScale }} 
-          className="absolute inset-0 z-[1] origin-center"
+      {/*
+        Keep Embla outside Framer transforms — transforming the Embla root
+        or slide contents with shared y/scale breaks drag and slide sizing.
+        Parallax only applies to single-image heroes; carousel images stay static.
+      */}
+      {isCarousel ? (
+        <div
+          ref={emblaRef}
+          className="absolute inset-0 z-0 h-full w-full overflow-hidden touch-pan-y"
         >
-          {isCarousel ? (
-            <div ref={emblaRef} className="h-full w-full overflow-hidden">
-              <div className="flex h-full">
-                {slides.map((src, i) => (
-                  <div key={src} className="relative h-full min-w-0 flex-[0_0_100%]">
-                    <Image
-                      src={src}
-                      alt={`${title} — vue ${i + 1}`}
-                      fill
-                      priority={i === 0}
-                      sizes="100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
+          <div className="flex h-full touch-pan-y">
+            {slides.map((src, i) => (
+              <div
+                key={`${src}-${i}`}
+                className="relative h-full min-w-0 flex-[0_0_100%] select-none"
+              >
+                <Image
+                  src={src}
+                  alt={`${title} — vue ${i + 1}`}
+                  fill
+                  draggable={false}
+                  priority={i === 0}
+                  sizes="100vw"
+                  className="pointer-events-none object-cover"
+                />
               </div>
-            </div>
-          ) : (
-            <Image
-              src={heroImage}
-              alt={`${title} Background`}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover opacity-100"
-            />
-          )}
+            ))}
+          </div>
+        </div>
+      ) : (
+        <motion.div
+          style={{ opacity: heroFade, y: imgY, scale: imgScale }}
+          className="absolute inset-[-12%] z-0 origin-center"
+        >
+          <Image
+            src={heroImage}
+            alt={`${title} Background`}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-100"
+          />
         </motion.div>
-
-      </motion.div>
+      )}
 
       {isCarousel ? (
         <>
@@ -152,7 +189,7 @@ function HeroSection({
             type="button"
             onClick={scrollPrev}
             aria-label="Image précédente"
-            className="absolute left-3 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:left-6 md:size-12"
+            className="absolute left-3 top-1/2 z-30 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:left-6 md:size-12"
           >
             <ChevronLeft className="size-6" strokeWidth={2.5} />
           </button>
@@ -160,11 +197,11 @@ function HeroSection({
             type="button"
             onClick={scrollNext}
             aria-label="Image suivante"
-            className="absolute right-3 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:right-6 md:size-12"
+            className="absolute right-3 top-1/2 z-30 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-sm transition hover:bg-black/50 md:right-6 md:size-12"
           >
             <ChevronRight className="size-6" strokeWidth={2.5} />
           </button>
-          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 md:bottom-8">
+          <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 md:bottom-8">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -183,11 +220,11 @@ function HeroSection({
 
       <motion.div 
         style={{ opacity: heroFade }}
-        className="relative z-10 flex flex-1 flex-col justify-end w-full pointer-events-none"
+        className="pointer-events-none relative z-10 flex w-full flex-1 flex-col justify-end"
       >
         <div
-          className={`pointer-events-auto flex w-full flex-col items-center gap-5 px-4 text-center sm:gap-6 md:gap-7 ${
-            isCarousel ? "pb-14 md:pb-16" : "pb-10 md:pb-12"
+          className={`flex w-full flex-col items-center gap-5 px-4 text-center sm:gap-6 md:gap-7 ${
+            isCarousel ? "pb-24 md:pb-28" : "pb-16 md:pb-20"
           }`}
         >
           <motion.div 
@@ -208,13 +245,35 @@ function HeroSection({
             {title}
           </motion.h1>
         </div>
+
+        <motion.button
+          type="button"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1, duration: 0.6 }}
+          onClick={scrollToNextSection}
+          aria-label="Défiler vers le bas"
+          className={`pointer-events-auto absolute left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1 text-white/80 transition hover:text-white ${
+            isCarousel ? "bottom-14 md:bottom-16" : "bottom-5"
+          }`}
+        >
+          <span className="font-unbounded text-[9px] font-semibold uppercase tracking-[0.25em] sm:text-[10px]">
+            Défiler
+          </span>
+          <motion.span
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowDown className="size-5 drop-shadow-md sm:size-6" strokeWidth={2.5} />
+          </motion.span>
+        </motion.button>
       </motion.div>
     </section>
   );
 }
 
 // =========================================================================
-// 2. EDITORIAL 50/50 SPLIT SHOWCASE (Dynamic Colors + Advanced Animation)
+// 3. EDITORIAL 50/50 SPLIT SHOWCASE (Dynamic Colors + Advanced Animation)
 // =========================================================================
 
 const SLIDE_PRESETS = [
@@ -310,8 +369,11 @@ function SplitShowcaseSubtitle({
 }
 
 function vimeoBackgroundSrc(videoId: string) {
-  return `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&muted=1&loop=1&badge=0&title=0&byline=0&portrait=0&controls=0&autopause=0&playsinline=1&dnt=1`;
+  return `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&muted=1&loop=1&badge=0&title=0&byline=0&portrait=0&controls=0&autopause=0&playsinline=1&dnt=1&quality=720p`;
 }
+
+/** Mount / keep the Vimeo iframe this many slides before the video slide so it can buffer. */
+const VIMEO_PRELOAD_SLIDES_AHEAD = 2;
 
 function SplitShowcase({
   title,
@@ -327,6 +389,7 @@ function SplitShowcase({
   vimeoVideoId?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
   const videoSlideIndex = vimeoVideoId ? paragraphs.length : -1;
   const totalSlides = paragraphs.length + (vimeoVideoId ? 1 : 0);
 
@@ -336,12 +399,49 @@ function SplitShowcase({
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
+  // Latched: once we start buffering, keep the iframe mounted for the rest of the visit.
+  const [videoIframeMounted, setVideoIframeMounted] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const sectionLength = 1 / totalSlides;
     const index = Math.min(Math.floor((latest + 0.01) / sectionLength), totalSlides - 1);
     setActiveIndex(index);
   });
+
+  useEffect(() => {
+    if (!vimeoVideoId || videoSlideIndex < 0 || videoIframeMounted) return;
+    if (activeIndex >= videoSlideIndex - VIMEO_PRELOAD_SLIDES_AHEAD) {
+      setVideoIframeMounted(true);
+    }
+  }, [activeIndex, videoIframeMounted, videoSlideIndex, vimeoVideoId]);
+
+  const goToSlide = (index: number) => {
+    if (index < 0 || index >= totalSlides) return;
+    if (!containerRef.current) return;
+
+    const el = containerRef.current;
+    const scrollRange = el.offsetHeight - window.innerHeight;
+    // Progress maps 0→1 across totalSlides equal bands while the sticky pin lasts.
+    const targetProgress = Math.min(1, (index + 0.08) / totalSlides);
+    const currentScroll = lenis?.scroll ?? window.scrollY;
+    const containerTop = el.getBoundingClientRect().top + currentScroll;
+    const targetScrollY = containerTop + targetProgress * Math.max(scrollRange, 0);
+
+    if (lenis) {
+      lenis.scrollTo(targetScrollY, { duration: 1.05, force: true });
+      return;
+    }
+    window.scrollTo({ top: targetScrollY, behavior: "smooth" });
+  };
+
+  const handlePanEnd = (_e: unknown, info: { offset: { x: number } }) => {
+    const swipeThreshold = 50;
+    if (info.offset.x < -swipeThreshold) {
+      goToSlide(activeIndex + 1);
+    } else if (info.offset.x > swipeThreshold) {
+      goToSlide(activeIndex - 1);
+    }
+  };
 
   const currentPreset = SLIDE_PRESETS[activeIndex % SLIDE_PRESETS.length];
   const onVideoSlide = vimeoVideoId != null && activeIndex === videoSlideIndex;
@@ -352,7 +452,11 @@ function SplitShowcase({
   return (
     <div ref={containerRef} style={{ height: `${totalSlides * 100}vh` }} className="relative w-full z-20">
       
-      <div className="sticky top-0 relative h-screen w-full flex flex-col lg:flex-row overflow-hidden">
+      <motion.div 
+        className="sticky top-0 relative h-screen w-full flex flex-col lg:flex-row overflow-hidden"
+        style={{ touchAction: "pan-y" }}
+        onPanEnd={handlePanEnd}
+      >
 
         {/* LEFT HALF: Crossfading Images with Slide & Scale */}
         <div className="relative w-full lg:w-1/2 h-[40vh] lg:h-full overflow-hidden bg-black">
@@ -381,21 +485,23 @@ function SplitShowcase({
           ))}
         </div>
 
-        {/* Full-viewport video — same crossfade as image slides */}
-        {vimeoVideoId ? (
+        {/* Full-viewport video — must not capture clicks while hidden or pills go dead */}
+        {vimeoVideoId && videoIframeMounted ? (
           <motion.div
             className="absolute inset-0 z-30 overflow-hidden bg-black"
-            initial={{ opacity: 0, scale: 1.1, y: "5%" }}
+            initial={false}
             animate={{
               opacity: onVideoSlide ? 1 : 0,
               scale: onVideoSlide ? 1 : 1.1,
               y: onVideoSlide ? "0%" : "5%",
+              pointerEvents: onVideoSlide ? "auto" : "none",
             }}
             transition={{ duration: 1, ease: cinematicEase }}
+            aria-hidden={!onVideoSlide}
           >
             <iframe
               src={vimeoBackgroundSrc(vimeoVideoId)}
-              title="MH"
+              title="Vidéo de présentation"
               className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -412,27 +518,74 @@ function SplitShowcase({
             opacity: onVideoSlide ? 0 : 1,
           }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="relative w-full lg:w-1/2 h-[60vh] lg:h-full flex flex-col justify-between p-8 sm:p-12 lg:p-20 xl:p-24"
+          className="relative z-40 w-full lg:w-1/2 h-[60vh] lg:h-full flex flex-col justify-between p-8 sm:p-12 lg:p-20 xl:p-24"
+          style={{ pointerEvents: onVideoSlide ? "none" : "auto" }}
         >
-          {/* Top: Pill Pagination Navigation */}
-          <div className="flex items-center gap-2 lg:gap-3">
-            {Array.from({ length: totalSlides }, (_, i) => {
-              const isActive = activeIndex === i;
-              return (
-                <motion.div
-                  key={i}
-                  animate={{
-                    backgroundColor: isActive ? currentPreset.pillActiveBg : currentPreset.pillInactiveBg,
-                    color: isActive ? currentPreset.pillActiveText : currentPreset.pillInactiveText,
-                    scale: isActive ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.5, ease: cinematicEase }}
-                  className="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full font-unbounded text-[10px] lg:text-xs font-bold shadow-sm"
+          {/* Top: Pill Pagination Navigation & Scroll Indicator */}
+          <div className="relative z-50 flex items-center justify-between w-full gap-4">
+            <div className="flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Phases">
+              {Array.from({ length: totalSlides }, (_, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <motion.button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-label={`Aller à la phase ${i + 1}`}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goToSlide(i);
+                    }}
+                    animate={{
+                      backgroundColor: isActive ? currentPreset.pillActiveBg : currentPreset.pillInactiveBg,
+                      color: isActive ? currentPreset.pillActiveText : currentPreset.pillInactiveText,
+                      scale: isActive ? 1.08 : 1,
+                    }}
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ duration: 0.35, ease: cinematicEase }}
+                    className="flex size-9 cursor-pointer items-center justify-center rounded-full font-unbounded text-[10px] font-bold shadow-sm ring-1 ring-current/20 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cap-yellow lg:size-11 lg:text-xs"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Scroll / swipe cue — visible until last slide, clickable */}
+            {activeIndex < totalSlides - 1 ? (
+              <motion.button
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToSlide(activeIndex + 1);
+                }}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                aria-label="Passer à la phase suivante"
+                className="group flex cursor-pointer items-center gap-2 rounded-full border border-current/30 bg-current/10 px-3 py-1.5 opacity-90 transition hover:bg-current/20 md:gap-3 md:px-4 md:py-2"
+              >
+                <span className="font-unbounded text-[10px] font-semibold uppercase tracking-[0.18em] md:text-xs">
+                  <span className="md:hidden">Glisser</span>
+                  <span className="hidden md:inline">Défiler</span>
+                </span>
+                <motion.span
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                  className="flex items-center"
                 >
-                  0{i + 1}
-                </motion.div>
-              );
-            })}
+                  <ArrowDown className="size-4 md:size-5" strokeWidth={2.5} />
+                </motion.span>
+              </motion.button>
+            ) : (
+              <span className="font-unbounded text-[10px] font-semibold uppercase tracking-[0.18em] opacity-50 md:text-xs">
+                Fin
+              </span>
+            )}
           </div>
 
           {/* Middle: headline = paragraph subtitle (replaces year/time) */}
@@ -486,23 +639,38 @@ function SplitShowcase({
                 </motion.div>
               ))}
             </div>
-
-            {/* Dynamic Animated Button */}
-            <motion.div
-              animate={{
-                backgroundColor: currentPreset.btnBg,
-                color: currentPreset.btnText,
-                y: 0,
-                opacity: 1
-              }}
-              transition={{ duration: 0.8, ease: cinematicEase }}
-              className="mt-6 w-fit rounded-full shadow-lg"
-            >
-            </motion.div>
           </div>
 
         </motion.div>
-      </div>
+
+        {/* Keep phase pills reachable once the full-bleed video covers the panel */}
+        {onVideoSlide ? (
+          <div className="pointer-events-none absolute right-0 top-0 z-50 flex w-full justify-end p-8 sm:p-12 lg:w-1/2 lg:p-20 xl:p-24">
+            <div className="pointer-events-auto flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Phases">
+              {Array.from({ length: totalSlides }, (_, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-label={`Aller à la phase ${i + 1}`}
+                    onClick={() => goToSlide(i)}
+                    className={`flex size-9 items-center justify-center rounded-full font-unbounded text-[10px] font-bold shadow-sm ring-1 ring-white/30 transition lg:size-11 lg:text-xs ${
+                      isActive
+                        ? "bg-white text-cap-blue"
+                        : "bg-black/40 text-white hover:bg-black/55"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+      </motion.div>
     </div>
   );
 }
@@ -523,6 +691,7 @@ export default function CompanyPage({
   logoSrc,
   iconName,
   vimeoVideoId,
+  activities,
 }: CompanyPageProps) {
   const Icon = iconName ? iconMap[iconName] : undefined;
 
@@ -566,8 +735,8 @@ export default function CompanyPage({
             accentTextClass={accentTextClass} 
           />
 
-          {/* 2. Text intro (word-rise scroll reveal — shared with home) */}
-          <StickyIntroFillScroll
+          {/* 2. Text intro (Blur fade up) */}
+          <BlurFadeUpSequence
             text={intro}
             accentClass={accentTextClass}
             className="bg-background"
@@ -581,6 +750,14 @@ export default function CompanyPage({
             images={scrollCards}
             vimeoVideoId={vimeoVideoId}
           />
+
+          {/* 4. Company activities timeline */}
+          {activities?.length ? (
+            <CompanyActivitiesSection
+              activities={activities}
+              accentColor={accentColor}
+            />
+          ) : null}
 
         </main>
         <HeroFooter />

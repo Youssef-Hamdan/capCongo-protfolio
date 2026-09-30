@@ -11,7 +11,7 @@ import {
   useSpring, 
   Variants,
 } from 'framer-motion';
-import { StickyIntroFillScroll } from '../components/about-intro-sequence';
+import { BlurFadeUpSequence } from '../components/about-intro-sequence';
 import { HeroFooter } from '../components/hero-footer';
 
 // ==========================================
@@ -123,8 +123,14 @@ function SustainabilityHero() {
 // ==========================================
 export function SustainabilityScrollSequence() {
   return (
-    <StickyIntroFillScroll
-      text="Notre approche vise non seulement à utiliser nos espaces agricoles de manière responsable, mais également à participer activement à la régénération de la couverture végétale pour enrichir l'environnement."
+    <BlurFadeUpSequence
+      text={[
+        "Notre approche vise non seulement à utiliser",
+        "nos espaces agricoles de manière responsable,",
+        "mais également à participer activement",
+        "à la régénération de la couverture végétale",
+        "pour enrichir l'environnement.",
+      ].join("\n")}
       accentClass="text-cap-dark-green"
     />
   );

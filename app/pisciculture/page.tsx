@@ -21,7 +21,12 @@ export default function PisciculturePage() {
   return (
     <CompanyPage
       title="PISCICULTURE"
-      intro="Entreprise spécialisée en pisciculture en République Démocratique du Congo, nous développons une production intégrée de poissons d’eau douce, notamment le tilapia (rouge et noir) et le clarias."
+      intro={[
+        "Entreprise spécialisée en pisciculture",
+        "en République Démocratique du Congo,",
+        "nous développons une production intégrée de poissons d’eau douce,",
+        "notamment le tilapia (rouge et noir) et le clarias.",
+      ].join("\n")}
       paragraphs={[
         "En complément de notre activité, nous assurons la distribution d’aliments pour poissons, sélectionnés auprès de fournisseurs fiables afin de garantir des performances optimales en élevage.",
         "Grâce à la maîtrise de notre production et à notre expertise terrain, nous proposons des solutions adaptées aux besoins des pisciculteurs, alliant qualité, régularité et efficacité.",

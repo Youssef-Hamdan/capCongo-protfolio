@@ -5,10 +5,11 @@ import {
   buildContactEmailSubject,
 } from "@/lib/contact-email";
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
+    if (!process.env.RESEND_API_KEY) {
       console.error("RESEND_API_KEY manquante");
       return NextResponse.json(
         { error: "Configuration e-mail manquante" },
@@ -30,9 +31,6 @@ export async function POST(req: Request) {
       process.env.RESEND_FROM_EMAIL ||
       "CAP Congo <onboarding@resend.dev>";
     const toEmail = process.env.RESEND_TO_EMAIL || "info@cap-congo.com";
-
-    // Instantiate only at request time so builds without the key still succeed.
-    const resend = new Resend(apiKey);
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,
