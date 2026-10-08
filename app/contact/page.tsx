@@ -190,10 +190,15 @@ export default function ContactPage() {
                 <MapPin className="h-6 w-6" />
               </div>
               <div>
-                <h3 className="font-unbounded text-xl font-semibold mb-2">Notre Siège</h3>
+                <h3 className="font-unbounded text-xl font-semibold mb-2">Notre siège</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Kinshasa, République Démocratique du Congo<br />
-                  [Insérez l'adresse de la rue ici]
+                  Kinshasa, République Démocratique du Congo
+                  <br />
+                  CAP CONGO SARL
+                  <br />
+                  Future Tower, 4<sup>e</sup> étage, Suite 404
+                  <br />
+                  Av. 30 Juin, Kinshasa/Gombe, RDC
                 </p>
               </div>
             </div>
@@ -212,6 +217,14 @@ export default function ContactPage() {
                   <li className="space-y-1">
                     <strong className="text-foreground">Téléphone :</strong>
                     <ul className="mt-1 space-y-2">
+                      <li>
+                        <span className="block text-xs uppercase tracking-wider text-muted-foreground/80">
+                          Head office
+                        </span>
+                        <a href="tel:+243906222944" className="hover:text-cap-blue transition">
+                          +243 906 222 944
+                        </a>
+                      </li>
                       <li>
                         <span className="block text-xs uppercase tracking-wider text-muted-foreground/80">
                           Agro Palm &amp; Agricole Bandundu

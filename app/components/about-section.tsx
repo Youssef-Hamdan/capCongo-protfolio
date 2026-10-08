@@ -1,15 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import type { LucideIcon } from "lucide-react";
-import { Fish, Leaf, Sprout, Wheat } from "lucide-react";
 import { AboutEvolutionHorizontal } from "./about-evolution-horizontal";
 import { AboutRdcPresenceMap } from "./about-rdc-presence-map";
 import { SectionLabel } from "./about-section-label";
 import { ManifestoSteps } from "./about-manifesto-steps";
-import { IntroSequence, EvolutionSequence } from "./about-intro-sequence";
+import { TextSequence } from "./text-sequence";
 
 const ORGANIZATION_BRANCHES = [
   { name: "PISCICULTURE", year: "2018", description: "Production de poissons d'eau douce" },
@@ -18,55 +14,18 @@ const ORGANIZATION_BRANCHES = [
   { name: "AGRICOLE BANDUNDU", year: "2024", description: "Développement agricole et cultures vivrières" },
 ];
 
-const ACTIVITIES: { icon: LucideIcon; title: string; text: string; bgImage: string; href: string }[] = [
-  {
-    icon: Sprout,
-    title: "Palmiers à huile",
-    text: "Exploitation et transformation de plantations.",
-    bgImage: "/images/agro-palm/hero.jpeg",
-    href: "/agro-palm",
-  },
-  {
-    icon: Wheat,
-    title: "Cultures Vivrières",
-    text: "Transformation du maïs et du manioc en farines.",
-    bgImage: "/images/bundundu/BANANADEMOFIELD.webp",
-    href: "/agricole-bundundu",
-  },
-  {
-    icon: Leaf,
-    title: "Maraîchère & Café",
-    text: "Production maraîchère, café et arachide.",
-    bgImage: "/images/mais.webp",
-    href: "/agro-pastoral",
-  },
-  {
-    icon: Fish,
-    title: "Pisciculture",
-    text: "Élevage de poissons d'eau douce africains.",
-    bgImage: "/images/pisiculture/DJI_0312.webp",
-    href: "/pisciculture",
-  },
-];
-
 export default function AboutSection() {
-  const [hoveredActivity, setHoveredActivity] = useState<number | null>(0); // Default to first open
-
   return (
     <section
       id="about"
-      className="scroll-mt-20 relative w-full max-w-full bg-gradient-to-b from-background from-0% via-cap-yellow/[0.08] via-50% to-background to-100% py-20 md:py-28 text-foreground"
+      className="scroll-mt-20 relative w-full max-w-full bg-background py-20 md:py-28 text-foreground"
     >
-      {/* Manifesto-Style Intro (Sticky + Fill + Fade) */}
-      <IntroSequence />
-
-      {/* Subtle light-surface accents */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_15%_20%,rgba(112,170,67,0.12),transparent)]"
-        aria-hidden
+      <TextSequence
+        accentClass="text-cap-dark-green"
+        text="Société agro-pastorale en pleine expansion, engagée dans le développement d'une agriculture moderne, durable et créatrice de valeur en Afrique. Nous garantissons qualité, traçabilité et performance."
       />
-      <div className="pointer-events-none absolute -right-32 top-0 h-[800px] w-[800px] rounded-full bg-cap-green/10 blur-[120px]" aria-hidden />
 
+     
       <div className="relative z-10 mx-auto max-w-[90rem] px-5 sm:px-8 md:px-16 lg:px-20">
         
         {/* NEW CREATIVE PRESENTATION: Sticky Editorial Layout */}
@@ -116,8 +75,6 @@ export default function AboutSection() {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                {/* Luxury gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-cap-dark-green/30 to-transparent mix-blend-multiply" />
               </div>
 
               {/* Overlapping secondary image (circular, breaking the grid) */}
@@ -153,66 +110,6 @@ export default function AboutSection() {
                   ]}
                 />
               </div>
-
-            {/* Activities Accordion */}
-            <div className="pt-8">
-              <SectionLabel className="mb-8">Nos Activités Principales</SectionLabel>
-              <div className="flex flex-col h-[500px] md:h-[600px] gap-3 group/accordion">
-                {ACTIVITIES.map((activity, i) => {
-                  const isActive = hoveredActivity === i;
-                  return (
-                    <div
-                      key={i}
-                      onMouseEnter={() => setHoveredActivity(i)}
-                      className={`relative flex-1 rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] border border-cap-dark/15 ${
-                        isActive ? "flex-[4]" : "min-h-[3.25rem] flex-[0.65]"
-                      }`}
-                    >
-                      {/* Activity Background Image */}
-                      <div className="absolute inset-0 z-0">
-                        <Image 
-                          src={activity.bgImage} 
-                          alt={activity.title} 
-                          fill 
-                          className={`object-cover transition-transform duration-[1.5s] ${isActive ? "scale-105" : "scale-100"}`} 
-                        />
-                      </div>
-
-                      {/* Content — collapsed: inset + vertical center so icon clears top/bottom of short strip */}
-                      <div
-                        className={`absolute z-10 flex gap-5 transition-all duration-700 ${
-                          isActive
-                            ? "bottom-0 left-0 right-0 items-end p-6 md:p-8"
-                            : "inset-0 items-center px-7 sm:px-9"
-                        }`}
-                      >
-                        <div className={`flex shrink-0 items-center justify-center rounded-2xl bg-cap-dark/90 backdrop-blur-md text-cap-green ring-1 ring-background/20 transition-all duration-700 ${
-                          isActive ? "h-16 w-16" : "h-12 w-12"
-                        }`}>
-                          <activity.icon className="h-6 w-6" strokeWidth={1.5} />
-                        </div>
-                        <div
-                          className={`overflow-hidden transition-all duration-700 ${
-                            isActive
-                              ? "max-h-40 opacity-100 translate-y-0"
-                              : "max-h-0 w-0 max-w-0 translate-y-8 opacity-0"
-                          }`}
-                        >
-                          <h4 className="font-unbounded text-xl font-semibold text-background mb-2">{activity.title}</h4>
-                          <p className="text-sm md:text-base text-background/80 line-clamp-2">{activity.text}</p>
-                          <Link 
-                            href={activity.href} 
-                            className="mt-3 inline-block font-unbounded text-[10px] font-bold uppercase tracking-widest text-cap-yellow transition-colors hover:text-white"
-                          >
-                            En savoir plus
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
           </div>
 
         </div>
@@ -225,13 +122,24 @@ export default function AboutSection() {
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center ">
           <SectionLabel className="justify-center">Notre Évolution</SectionLabel>
         </div>
-        <EvolutionSequence />
+        <TextSequence
+          accentClass="text-cap-dark-green"
+          className="py-16 md:py-20"
+          text="CAP CONGO est structurée en quatre branches complémentaires, couvrant l'ensemble de la chaîne de valeur agricole au fil du temps. Parcourez chaque filière avec les flèches de navigation."
+        />
       </div>
 
       <div className="relative z-10 w-full min-w-0">
         <AboutEvolutionHorizontal branches={ORGANIZATION_BRANCHES.map(branch => ({
           ...branch,
-          bgImage: branch.name === "PISCICULTURE" ? "/images/pisiculture/DJI_0312.webp" : branch.name === "AGRO-PASTORAL" ? "/images/mais.webp" : branch.name === "AGRO PALM" ? "/images/agro-palm/hero.jpeg" : "/images/bundundu/BANANADEMOFIELD.webp",
+          bgImage:
+            branch.name === "PISCICULTURE"
+              ? `/images/pisiculture/${encodeURIComponent("fish list image.jpeg")}`
+              : branch.name === "AGRO-PASTORAL"
+                ? "/images/mais.webp"
+                : branch.name === "AGRO PALM"
+                  ? "/images/agro-palm/hero.jpeg"
+                  : "/images/carrouselbandundu.webp",
         }))} />
       </div>
 

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Pisciculture intégrée en République Démocratique du Congo — tilapia, clarias et aliments pour poissons.",
     url: "/pisciculture",
-    images: [{ url: "/images/pisiculture/fish3.webp", alt: "Pisciculture" }],
+    images: [{ url: "/images/pisiculture/fishheroimage1.webp", alt: "Pisciculture" }],
   },
 };
 
@@ -38,14 +38,14 @@ export default function PisciculturePage() {
         "**Aquaculture** en RDC et **sécurité alimentaire**",
       ]}
       heroImages={[
-        "/images/pisiculture/fish3.webp",
-        "/images/pisiculture/DJI_0307.webp",
-        "/images/pisiculture/fish1.webp",
+        "/images/pisiculture/farm-aerial-valley.webp",
+        "/images/pisiculture/fishheroimage1.webp",
+        "/images/pisiculture/fishheroimage3.webp",
       ]}
       showcaseImages={[
         "/images/pisiculture/HR5A3722.webp",
-        "/images/pisiculture/HR5A3714.webp",
-        "/images/pisiculture/DJI_0312.webp",
+        "/images/pisiculture/fish-image.webp",
+        `/images/pisiculture/${encodeURIComponent("fish list image.jpeg")}`,
       ]}
       accentColor="blue"
       logoSrc="/images/logos/Asset%2013@4x.png"

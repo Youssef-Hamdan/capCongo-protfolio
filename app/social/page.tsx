@@ -12,7 +12,7 @@ import {
   Variants,
   AnimatePresence,
 } from 'framer-motion';
-import { BlurFadeUpSequence } from '../components/about-intro-sequence';
+import { TextSequence } from '../components/text-sequence';
 import { HeroFooter } from '../components/hero-footer';
 // ==========================================
 // 1. ANIMATED STATS COMPONENT
@@ -76,8 +76,8 @@ function SocialImpactHero() {
     >
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop"
-          alt="Femmes et enfants en Afrique"
+          src="/images/socialheroimage.webp"
+          alt="Impact social — CAP Congo"
           fill
           className="object-cover opacity-80"
           priority
@@ -119,13 +119,11 @@ function SocialImpactHero() {
 }
 export function SocialImpactScrollSequence() {
   return (
-    <BlurFadeUpSequence
+    <TextSequence
       text={[
-        "Engagée pour le développement communautaire,",
-        "Cap Congo Agro Palm améliore le quotidien des populations locales",
-        "à travers la construction d’un hôpital à Babama,",
-        "des distributions alimentaires à Mushie Pentane",
-        "et un soutien matériel continu à Lubunga.",
+        "Engagés pour le développement communautaire",
+        "Cap Congo agit concrètement en faveur du développement local à travers des initiatives dans les domaines de l’éducation, de la santé et de l’accompagnement des populations.",
+        "Ces actions, menées en lien avec les acteurs locaux, contribuent à améliorer durablement les conditions de vie et à créer une valeur sociale positive et pérenne.",
       ].join("\n")}
       accentClass="text-cap-blue"
     />
@@ -135,45 +133,37 @@ export function SocialImpactScrollSequence() {
 // --- Data Structure ---
 const stories = [
   {
-    id: 1,
-    imageSrc: "/images/social/hospital_7.webp",
-    imageAlt: "Construction de l'hôpital de Babama",
-    title: "Hôpital de Babama",
-    text: "Dans le cadre de ses actions communautaires à Babama, la société Cap Congo Agro Palm a procédé à la construction d'un hôpital afin d'améliorer l'accès aux soins de santé pour la population locale.",
-    credit: "Cap Congo Agro Palm, Babama",
+    id: 4,
+    imageSrc: "/images/school.webp",
+    imageAlt: "École Primaire EP UJCCM — Kisangani",
+    title: "Grandir ensemble",
+    text: "Dans le cadre de son engagement en faveur du développement local, CAP CONGO a contribué à la construction de l’École Primaire EP UJCCM à Kisangani, dans la province de la Tshopo.\n\nCette initiative témoigne de l’engagement de CAP CONGO à améliorer les conditions d’apprentissage des enfants et à soutenir durablement le développement des communautés locales.",
+    credit: "Cap Congo, Kisangani — Tshopo",
   },
   {
-    id: 2,
-    imageSrc: "/images/social/school_4.webp",
-    imageAlt: "Visite du Bourgmestre de Lubunga au chantier du CS Babama",
-    title: "CS Babama",
-    text: "Le chantier du CS Babama a accueilli la visite du Bourgmestre de Lubunga, un encouragement fort pour notre engagement social.",
-    credit: "Cap Congo, Lubunga",
+    id: 1,
+    imageSrc: "/images/hospital.webp",
+    imageAlt: "Hôpital de Babama",
+    title: "Hôpital de Babama",
+    text: "Dans le cadre de son engagement en faveur du développement durable et du soutien aux communautés locales, Cap Congo Agro Palm a construit l’Hôpital de Babama, situé à Kisangani, afin de renforcer les infrastructures de santé et de faciliter l’accès des populations aux services de soins, contribuant ainsi à l’amélioration de la qualité de vie et au bien-être des communautés locales.",
+    credit: "Cap Congo Agro Palm, Kisangani",
   },
   {
     id: 3,
-    imageSrc: "/images/social/colothes.webp",
+    imageSrc: "/images/socialimage2.webp",
     imageAlt: "Don de vareuses à la population de Lubunga",
     title: "Don de vareuses",
     text: "La société Cap Congo Agro Palm a procédé à un don de vareuses en faveur de la population de Lubunga, témoignant ainsi de son engagement social et de sa proximité avec les communautés locales.",
     credit: "Cap Congo Agro Palm, Lubunga",
   },
   {
-    id: 4,
-    imageSrc: "/images/social/food_1.webp",
-    imageAlt: "Distribution de maïs à Mushie Pentane",
-    title: "Distribution de maïs",
-    text: "Dans le cadre de ses actions communautaires, la Société Cap Congo agricole Bandundu avait organisé une distribution de maïs en faveur de la communauté de Mushie Pentane, contribuant ainsi au soutien alimentaire et au développement des communautés locales.",
-    credit: "Cap Congo Agricole Bandundu, Mushie Pentane",
-  },
-  {
     id: 5,
-    imageSrc: "/images/social/socail.webp",
+    imageSrc: "/images/socailimage5.webp",
     imageAlt:
-      "Visite de l'Honorable Claude Kumpel Mpasi dans les installations de Cap Congo Agricole Bandundu",
+      "Visite de l'Honorable Claude KUMPEL MPASI — Cap Congo Agricole Bandundu",
     title: "Visite officielle",
-    text: "Retour en images de la visite du Président de l'Assemblée Provinciale du Kwilu, l'Honorable Claude KUMPEL MPASI, dans les installations de Cap Congo Agricole Bandundu, ce 03 juillet, témoigne de l'intérêt porté au développement du secteur agricole et à la valorisation des initiatives locales.\n\nCette rencontre a permis de présenter notre vision, nos infrastructures ainsi que notre engagement en faveur d'une agriculture moderne, créatrice d'emplois et de richesse pour la province du Kwilu et la RDC. Nous remercions chaleureusement l'Honorable Président pour cette visite et les échanges constructifs autour de l'avenir de l'agriculture.\n\nEnsemble, bâtissons une agriculture forte et durable!",
-    credit: "Cap Congo Agricole Bandundu, Kwilu — 03 juillet",
+    text: "Le 3 juillet, Cap Congo Agricole Bandundu a eu l’honneur d’accueillir le Président de l’Assemblée Provinciale du Kwilu, l’Honorable Claude KUMPEL MPASI.\n\nCette visite a été l’occasion de présenter nos infrastructures, notre vision et notre engagement en faveur d’une agriculture moderne et durable, créatrice d’emplois et de valeur pour la province du Kwilu et la RDC.",
+    credit: "Cap Congo Agricole Bandundu, Kwilu — 3 juillet",
   },
 ];
 
@@ -195,8 +185,8 @@ export function StoryRotator() {
       {/* ========================================== */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {stories.map((story, idx) => {
-          // Determine if this specific story is an even or odd index
-          const isEven = idx % 2 === 0;
+          // First story on the right, then alternate (right, left, right, left…)
+          const textOnLeft = idx % 2 === 1;
 
           return (
             <motion.div
@@ -214,13 +204,13 @@ export function StoryRotator() {
                 priority={idx === 0}
               />
               {/* Alternating Gradient:
-                If text is on left (isEven), fade from dark left to clear right.
-                If text is on right (!isEven), fade from dark right to clear left.
+                If text is on left, fade from dark left to clear right.
+                If text is on right, fade from dark right to clear left.
                 Mobile is always bottom-to-top.
               */}
               <div 
                 className={`absolute inset-0 bg-gradient-to-t from-cap-ink/90 via-cap-ink/40 to-transparent 
-                ${isEven 
+                ${textOnLeft 
                   ? 'md:bg-gradient-to-r md:from-cap-ink/90 md:via-cap-ink/50 md:to-transparent' 
                   : 'md:bg-gradient-to-l md:from-cap-ink/90 md:via-cap-ink/50 md:to-transparent'
                 }`} 
@@ -229,7 +219,7 @@ export function StoryRotator() {
               {/* Photo Credit swaps to the opposite side of the text */}
               <div 
                 className={`absolute bottom-6 font-sans text-xs font-medium tracking-widest text-white/70 
-                ${isEven ? 'right-6 md:right-12' : 'left-6 md:left-12'}`}
+                ${textOnLeft ? 'right-6 md:right-12' : 'left-6 md:left-12'}`}
               >
                 Crédit photo &copy; {story.credit}
               </div>
@@ -243,31 +233,31 @@ export function StoryRotator() {
       {/* ========================================== */}
       <div className="relative z-10 -mt-[100vh] w-full">
         {stories.map((story, idx) => {
-          const isEven = idx % 2 === 0;
+          const textOnLeft = idx % 2 === 1;
 
           return (
             <motion.div
               key={story.id}
               // Swap flex alignment on desktop based on index
               className={`flex min-h-screen w-full items-end px-6 pb-24 md:items-center md:px-16 lg:px-24 
-              ${isEven ? 'justify-start md:justify-start' : 'justify-start md:justify-end'}`}
+              ${textOnLeft ? 'justify-start md:justify-start' : 'justify-start md:justify-end'}`}
               onViewportEnter={() => setActiveIndex(idx)}
               viewport={{ amount: 0.5 }}
               initial="hidden"
               whileInView="visible"
             >
               {/* Text Alignment Container */}
-              <div className={`w-full max-w-2xl ${isEven ? 'text-left' : 'text-left md:text-right'}`}>
+              <div className={`w-full max-w-2xl ${textOnLeft ? 'text-left' : 'text-left md:text-right'}`}>
                 
                 {/* Accent line follows the text alignment */}
                 <motion.div 
                   variants={textVariants} 
-                  className={`mb-8 h-1 w-16 bg-cap-yellow ${isEven ? '' : 'md:ml-auto'}`} 
+                  className={`mb-8 h-1 w-16 bg-cap-yellow ${textOnLeft ? '' : 'md:ml-auto'}`} 
                 />
 
                 <motion.h2 
                   variants={textVariants}
-                  className="font-unbounded text-4xl font-bold uppercase leading-tight tracking-wide text-white drop-shadow-lg md:text-5xl lg:text-7xl"
+                  className="font-unbounded text-2xl font-bold uppercase leading-tight tracking-wide text-white drop-shadow-lg sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   {story.title}
                 </motion.h2>
@@ -275,7 +265,7 @@ export function StoryRotator() {
                 <motion.div
                   variants={textVariants}
                   className={`mt-6 max-w-xl space-y-4 text-lg font-light leading-relaxed text-white/90 drop-shadow md:mt-8 md:text-2xl 
-                  ${isEven ? '' : 'md:ml-auto'}`}
+                  ${textOnLeft ? '' : 'md:ml-auto'}`}
                 >
                   {story.text.split("\n\n").map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>

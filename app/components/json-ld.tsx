@@ -18,9 +18,8 @@ const structuredData = {
         addressCountry: "CD",
       },
       sameAs: [
-        "https://www.facebook.com/agricole.bandundu/",
-        "https://www.facebook.com/PiscicultureCapCongo/",
-        "https://www.facebook.com/AGROPALM.RDC",
+        "https://www.facebook.com/share/1Bb7HSMbX5/",
+        "https://www.instagram.com/cap.congo.sarl/",
       ],
     },
     {

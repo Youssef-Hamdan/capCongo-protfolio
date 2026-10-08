@@ -6,7 +6,7 @@ import Link from "next/link";
 import { type LucideIcon, Fish, Leaf, Sprout, Wheat, ChevronLeft, ChevronRight, ArrowDown } from "lucide-react";
 import { HeroFooter } from "./hero-footer";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { BlurFadeUpSequence } from "./about-intro-sequence";
+import { TextSequence } from "./text-sequence";
 import {
   CompanyActivitiesSection,
   type CompanyActivity,
@@ -523,7 +523,7 @@ function SplitShowcase({
         >
           {/* Top: Pill Pagination Navigation & Scroll Indicator */}
           <div className="relative z-50 flex items-center justify-between w-full gap-4">
-            <div className="flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Phases">
+            <div className="flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Étapes">
               {Array.from({ length: totalSlides }, (_, i) => {
                 const isActive = activeIndex === i;
                 return (
@@ -646,7 +646,7 @@ function SplitShowcase({
         {/* Keep phase pills reachable once the full-bleed video covers the panel */}
         {onVideoSlide ? (
           <div className="pointer-events-none absolute right-0 top-0 z-50 flex w-full justify-end p-8 sm:p-12 lg:w-1/2 lg:p-20 xl:p-24">
-            <div className="pointer-events-auto flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Phases">
+            <div className="pointer-events-auto flex items-center gap-2 lg:gap-3" role="tablist" aria-label="Étapes">
               {Array.from({ length: totalSlides }, (_, i) => {
                 const isActive = activeIndex === i;
                 return (
@@ -736,7 +736,7 @@ export default function CompanyPage({
           />
 
           {/* 2. Text intro (Blur fade up) */}
-          <BlurFadeUpSequence
+          <TextSequence
             text={intro}
             accentClass={accentTextClass}
             className="bg-background"

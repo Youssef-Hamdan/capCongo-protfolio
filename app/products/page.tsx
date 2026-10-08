@@ -7,7 +7,7 @@ const products = [
   {
     id: 1,
     name: 'Savon Dona Nectar de Fleur',
-    category: 'Savons Dona',
+    category: 'Savon',
     description:
       "Découvrez Dona Nectar de Fleur, le savon de soin corporel conçu pour révéler toute la beauté naturelle de votre peau. Grâce à sa mousse onctueuse et à son parfum floral délicat, il nettoie en douceur, procure une agréable sensation de fraîcheur et laisse la peau douce, propre et délicatement parfumée — fabriqué par CAP Congo Agro Palm.",
     image: '/images/products/savon/Dona blue.webp',
@@ -16,7 +16,7 @@ const products = [
   {
     id: 2,
     name: 'Savon Dona Arôme de Fleur',
-    category: 'Savons Dona',
+    category: 'Savon',
     description:
       "Offrez à votre peau un véritable moment de douceur avec le Savon Dona – Arôme de Fleur. Sa mousse onctueuse nettoie délicatement la peau tout en laissant un parfum floral frais et raffiné. Conçu pour le soin corporel quotidien, il transforme chaque bain en un instant de plaisir — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/Dona green.webp',
@@ -25,7 +25,7 @@ const products = [
   {
     id: 3,
     name: 'Savon Dona au Miel',
-    category: 'Savons Dona',
+    category: 'Savon',
     description:
       "Offrez à votre peau le meilleur de la nature avec le Savon Dona au Miel. Enrichi en miel, reconnu pour ses propriétés nourrissantes et adoucissantes, il nettoie délicatement tout en préservant l'hydratation naturelle. Idéal pour un soin corporel quotidien — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/Dona yellow.webp',
@@ -34,7 +34,7 @@ const products = [
   {
     id: 4,
     name: 'Savon DONA Bouquet de Fleur',
-    category: 'Savons Dona',
+    category: 'Savon',
     description:
       "Offrez à votre peau un véritable moment de douceur avec le Savon DONA Bouquet de Fleur. Enrichi d'un délicat parfum floral, il nettoie efficacement tout en laissant fraîcheur et fragrance raffinée. Un soin corporel quotidien alliant confort, élégance et bien-être — CAP Congo Agro Palm.",
     image: '/images/products/savon/Dona purpel.webp',
@@ -43,7 +43,7 @@ const products = [
   {
     id: 5,
     name: 'Super+',
-    category: 'Hygiène',
+    category: 'Savon',
     description:
       "Super+ est un savon médical antibactérien conçu pour une hygiène optimale au quotidien. Sa formule aide à éliminer les bactéries, purifier la peau et protéger toute la famille contre les impuretés responsables de nombreuses infections cutanées — fabriqué par CAP Congo Agro Palm.",
     image: '/images/products/savon/super.webp',
@@ -51,8 +51,8 @@ const products = [
   },
   {
     id: 6,
-    name: 'SOPA Beauty Soap white Glycerine (Vert)',
-    category: 'SOPA Beauty',
+    name: 'Savon SOPA Beauty glycérine blanche (Vert)',
+    category: 'Savon',
     description:
       "Le savon conçu pour nettoyer en douceur tout en préservant l'hydratation naturelle de votre peau. Grâce à sa formule enrichie en glycérine, il laisse la peau douce, souple et agréablement parfumée. Adapté à un usage quotidien — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/sopa green.webp',
@@ -60,8 +60,8 @@ const products = [
   },
   {
     id: 7,
-    name: 'SOPA Beauty Soap white Glycerine (Jaune)',
-    category: 'SOPA Beauty',
+    name: 'Savon SOPA Beauty glycérine blanche (Jaune)',
+    category: 'Savon',
     description:
       "Le savon conçu pour nettoyer en douceur tout en préservant l'hydratation naturelle de votre peau. Grâce à sa formule enrichie en glycérine, il laisse la peau douce, souple et agréablement parfumée. Adapté à un usage quotidien — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/Sopa yellow.webp',
@@ -69,8 +69,8 @@ const products = [
   },
   {
     id: 8,
-    name: 'SOPA Beauty Soap white Glycerine (Rose)',
-    category: 'SOPA Beauty',
+    name: 'Savon SOPA Beauty glycérine blanche (Rose)',
+    category: 'Savon',
     description:
       "Le savon conçu pour nettoyer en douceur tout en préservant l'hydratation naturelle de votre peau. Grâce à sa formule enrichie en glycérine, il laisse la peau douce, souple et agréablement parfumée. Adapté à un usage quotidien — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/sopa pink.webp',
@@ -78,42 +78,78 @@ const products = [
   },
   {
     id: 9,
-    name: 'Magic – Triple action',
-    category: 'Hygiène',
+    name: 'Savon Magic+ — Un savon, plusieurs usages',
+    category: 'Savon',
     description:
-      "Avec Magic, un seul savon répond à tous les besoins de la maison : il nettoie le linge, dégraisse la vaisselle et prend soin du corps. Sa mousse généreuse en fait un allié indispensable pour toute la famille — un produit de CAP Congo Agro Palm.",
-    image: '/images/products/savon/magic.webp',
-    tag: 'Triple action',
+      "Magic+ est un savon polyvalent conçu pour répondre aux besoins quotidiens de toute la famille. Efficace pour la vaisselle et le nettoyage des mains, il convient également au bain et à tous types de peau. Sa formule offre un nettoyage efficace tout en laissant une agréable sensation de propreté.",
+    image: '/images/products/savon/magic-plus.jpeg',
+    tag: 'Polyvalent',
   },
   {
     id: 10,
     name: 'Savon de Marseille Fleuri (Safi+)',
-    category: 'Savons',
+    category: 'Savon',
     description:
       "Le Safi+ savon de Marseille Fleuri allie la tradition du savon de Marseille à un délicat parfum floral. Il nettoie la peau en douceur, laisse une fragrance fleurie durable et apporte douceur, propreté et confort à toute la famille — un produit de CAP Congo Agro Palm.",
     image: '/images/products/savon/Safi pink.webp',
     tag: 'Traditionnel',
   },
   {
+    id: 17,
+    name: 'Savon Éléphant',
+    category: 'Savon',
+    description:
+      "Le savon Éléphant est votre allié au quotidien pour le ménage, la vaisselle et la lessive. Un savon polyvalent pour entretenir votre maison, nettoyer vos ustensiles et laver votre linge.",
+    image: '/images/Elephantsavon.webp',
+    tag: 'Polyvalent',
+  },
+  {
+    id: 18,
+    name: 'Savon Cristo',
+    category: 'Savon',
+    description:
+      "Le savon Cristo accompagne vos gestes de propreté. Idéal pour le ménage et l'entretien de votre maison. Votre partenaire au quotidien pour un intérieur soigné.",
+    image: '/images/Cristosavon.webp',
+    tag: 'Ménage',
+  },
+  {
     id: 11,
-    name: "Palmina – L'huile végétale qui sublime toutes vos recettes",
+    name: 'Huile végétale Palmina – Bidon 25 L',
     category: 'Huiles',
     description:
-      "Découvrez Palmina, l'huile végétale de qualité produite par CAP Congo Agro Palm, conçue pour les familles, restaurateurs et professionnels. Formats : bidon 3 L (ménages), 5 L (familles nombreuses) et 25 L (restaurants, hôtels et professionnels) — qualité, praticité et confiance.",
-    image: '/images/products/HuilevgtalePalminaBidon3L.webp',
-    tag: 'Cuisine',
+      "Une huile végétale de qualité, adaptée aux besoins des familles, restaurants et professionnels de la restauration. Son format de 25 litres est idéal pour une utilisation régulière et en grande quantité.",
+    image: '/images/products/palmina-25l.jpeg',
+    tag: '25 L',
   },
   {
     id: 12,
+    name: 'Huile végétale Palma – Bidon 25 L',
+    category: 'Huiles',
+    description:
+      "Une huile pratique et polyvalente pour vos différentes préparations culinaires. Le bidon de 25 litres offre un format économique adapté aux usages professionnels et collectifs.",
+    image: '/images/products/palma-25l.jpeg',
+    tag: '25 L',
+  },
+  {
+    id: 13,
+    name: 'Huile végétale Palmina – Bidon 3 L',
+    category: 'Huiles',
+    description:
+      "Pratique au quotidien, l'huile végétale Palmina est idéale pour la cuisson, la friture et la préparation de vos plats préférés. Son format de 3 litres offre un excellent équilibre entre praticité et quantité, pour accompagner facilement toutes vos recettes.",
+    image: '/images/products/palmina-3l.jpeg',
+    tag: '3 L',
+  },
+  {
+    id: 14,
     name: "BioMar : L'aliment de qualité pour une pisciculture performante",
     category: 'Pisciculture',
     description:
       "Chez Cap Congo Pisciculture, nous mettons à la disposition des pisciculteurs l'aliment BioMar, une marque reconnue en Europe pour son expertise dans la nutrition aquacole. Grâce à des formulations équilibrées et adaptées aux besoins des poissons, BioMar favorise une croissance rapide, une excellente conversion alimentaire et une meilleure santé des élevages. Conçu pour répondre aux exigences de l'aquaculture moderne, l'aliment BioMar contribue à améliorer les performances de production tout en garantissant le bien-être des poissons.",
     image: '/images/products/Biomar.webp',
-    tag: 'Aquaculture',
+    tag: 'Aquacole',
   },
   {
-    id: 13,
+    id: 15,
     name: "Poisson-chat (Ngolo) : Le goût du frais, la qualité du local",
     category: "Pisciculture",
     description: "Le goût du frais, la qualité du local ! Élevé avec soin par Cap Congo Pisciculture, notre poisson-chat, également appelé Ngolo, est une production locale destinée à offrir aux familles congolaises un poisson frais et de qualité. De l’élevage à la commercialisation, nous veillons à chaque étape pour proposer un produit frais, savoureux et adapté aux besoins du marché congolais.",
@@ -121,7 +157,7 @@ const products = [
     tag: "Production locale"
   },
   {
-    id: 14,
+    id: 16,
     name: 'Maïs Jaune Tiger – La qualité qui nourrit vos meilleures recettes',
     category: 'Céréales',
     description:
@@ -132,18 +168,15 @@ const products = [
 ]
 
 const categories = [
-  'Tous',
-  'Savons Dona',
-  'SOPA Beauty',
-  'Savons',
-  'Hygiène',
+  'Savon',
   'Huiles',
   'Pisciculture',
   'Céréales',
+  'Tous',
 ]
 
 export default function ProductsPage() {
-  const [active, setActive] = useState('Tous')
+  const [active, setActive] = useState('Savon')
   const [hovered, setHovered] = useState<number | null>(null)
 
   const filtered =
@@ -161,13 +194,13 @@ export default function ProductsPage() {
               <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-cap-dark md:text-6xl lg:text-7xl">
                 La gamme CAP Congo
                 <br />
-                <span className="text-cap-green">savons, huile & plus.</span>
+                <span className="text-cap-green">savons, huiles & plus.</span>
               </h1>
             </div>
             <p className="max-w-md pb-2 text-base font-light leading-relaxed text-black/60 md:text-lg">
-              Savons Agro Palm, huile végétale Palmina, aliment BioMar pour la
-              pisciculture et maïs Tiger — des produits locaux de qualité pour
-              les familles et professionnels en RDC.
+              Savons Agro Palm, huiles végétales Palmina & Palma, aliment BioMar
+              pour la pisciculture et maïs Tiger — des produits locaux de qualité
+              pour les familles et professionnels en RDC.
             </p>
           </div>
         </section>

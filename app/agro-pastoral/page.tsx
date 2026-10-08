@@ -43,12 +43,12 @@ export default function AgroPastoralPage() {
       heroImages={[
         "/images/agro-pastoral/HR5A4473.webp",
         "/images/agro-pastoral/HR5A4470.webp",
-        "/images/agro-pastoral/HR5A4468.webp",
+        "/images/agropastoral_heroimage.webp",
       ]}
       showcaseImages={[
-        "/images/agro-pastoral/HR5A4469.webp",
-        "/images/agro-pastoral/20210817_132159.webp",
-        "/images/agro-pastoral/HR5A4471.webp",
+        "/images/agropastoral_firstimage.webp",
+        "/images/agropastoral_secondimage.webp",
+        "/images/agropastoral_thirdimage.webp",
       ]}
       accentColor="green"
       logoSrc="/images/logos/Asset%2015@4x.png"

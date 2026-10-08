@@ -11,7 +11,7 @@ import {
   useSpring, 
   Variants,
 } from 'framer-motion';
-import { BlurFadeUpSequence } from '../components/about-intro-sequence';
+import { TextSequence } from '../components/text-sequence';
 import { HeroFooter } from '../components/hero-footer';
 
 // ==========================================
@@ -123,7 +123,7 @@ function SustainabilityHero() {
 // ==========================================
 export function SustainabilityScrollSequence() {
   return (
-    <BlurFadeUpSequence
+    <TextSequence
       text={[
         "Notre approche vise non seulement à utiliser",
         "nos espaces agricoles de manière responsable,",
@@ -158,7 +158,7 @@ const stories = [
   },
   {
     id: 3,
-    imageSrc: "/images/bundundu/BANANADEMOFIELD.webp",
+    imageSrc: "/images/sustainablityimage3.webp",
     imageAlt: "Plantations de palmiers à grande échelle",
     title: "Plantations à Grande Échelle",
     text: "Nous avons réalisé des plantations à grande échelle, notamment de palmiers et d’autres essences, qui ont aujourd’hui bien évolué. La végétation est redevenue verte et dense, ce qui contribue à l’enrichissement de l’environnement.",

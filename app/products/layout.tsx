@@ -4,14 +4,15 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "Produits",
   description:
-    "Gamme CAP Congo : savons Agro Palm, huile végétale Palmina, aliment BioMar pour la pisciculture et maïs Tiger — produits locaux de qualité en RDC.",
+    "Gamme CAP Congo : savons Agro Palm, huiles végétales Palmina & Palma, aliment BioMar pour la pisciculture et maïs Tiger — produits locaux de qualité en RDC.",
   path: "/products",
-  ogImage: "/images/products/HuilevgtalePalminaBidon3L.webp",
+  ogImage: "/images/products/palmina-3l.jpeg",
   ogImageAlt: "Huile végétale Palmina — CAP Congo",
   keywords: [
     "produits CAP Congo",
     "savon Agro Palm",
     "huile Palmina",
+    "huile Palma",
     "BioMar pisciculture",
     "maïs Tiger",
   ],

@@ -14,11 +14,14 @@ import Autoplay from "embla-carousel-autoplay";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_IMAGES = [
-  { src: "/images/durabilite_1.webp", alt: "Agriculture durable — CAP Congo" },
-  { src: "/images/agro-palm/agropalm_1.webp", alt: "Palmeraie — Agro Palm" },
+  { src: "/images/home-hero/mais.webp", alt: "Cultures vivrières — maïs" },
+  { src: "/images/home-hero/mais-field.webp", alt: "Champs agricoles — CAP Congo" },
+  {
+    src: `/images/${encodeURIComponent("hero image bandundu.jpeg")}`,
+    alt: "Agricole Bandundu — CAP Congo",
+  },
   { src: "/images/agro-pastoral/HR5A4473.webp", alt: "Élevage agro-pastoral" },
-  { src: "/images/pisiculture/DJI_0312.webp", alt: "Pisciculture — bassins" },
-  { src: "/images/2_mais.webp", alt: "CAP Congo" },
+  { src: "/images/pisiculture/farm-aerial.webp", alt: "Pisciculture — bassins" },
 ] as const;
 
 export default function HeroSection() {

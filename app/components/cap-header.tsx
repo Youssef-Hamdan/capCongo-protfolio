@@ -35,12 +35,12 @@ const COMPANY_ITEMS: { label: string; href: string; tagline: string }[] = [
   {
     label: "PISCICULTURE",
     href: "/pisciculture",
-    tagline: "Aquaculture durable",
+    tagline: "Pisciculture durable",
   },
 ];
 
 const PAGE_NAV_ITEMS: { label: string; href: string }[] = [
-  { label: "PRODUCTS", href: "/products" },
+  { label: "PRODUITS", href: "/products" },
   { label: "DURABILITÉ", href: "/durabilite" },
   { label: "SOCIAL", href: "/social" },
 ];
